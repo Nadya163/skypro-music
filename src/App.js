@@ -5,7 +5,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-        «Здесь скоро будет Skypro.Music»
+        Здесь скоро будет Skypro.Music
         </p>
       </header>
     </div>
