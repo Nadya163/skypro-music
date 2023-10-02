@@ -22,10 +22,11 @@ function TrackPlay({ author, album }) {
 
 function Bar() {
     return (
-        <div className="bar">
+      <div className="bar">
         <div className="bar__content">
           <div className="bar__player-progress" />
-          <div className="bar__player-block">
+          <div className="column">
+            <div className="bar__player-block">
             <div className="bar__player player">
               <div className="player__controls">
                 <div className="player__btn-prev">
@@ -87,6 +88,7 @@ function Bar() {
             </div>
           </div>
         </div>
+      </div>
     )
 }
 

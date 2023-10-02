@@ -641,6 +641,11 @@ body {
   padding: 0 92px 0 0;
 }
 
+.column {
+  display: flex;
+  justify-content: space-between;
+}
+
 .player__controls {
   display: -webkit-box;
   display: -ms-flexbox;

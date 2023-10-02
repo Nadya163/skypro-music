@@ -35,9 +35,9 @@ function Nav() {
     <Burger />
     <div className="nav__menu menu">
       <ul className="menu__list">
-        <MenuItem link="#main" text="Главное" />
+        <MenuItem link="/" text="Главное" />
         <MenuItem link="/" text="Мой плейлист" />
-        <MenuItem link="../signin.html" text="Войти" />
+        <MenuItem link="Signin.js" text="Войти" />
       </ul>
     </div>
   </nav>

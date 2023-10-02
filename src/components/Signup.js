@@ -1,9 +1,9 @@
-function Signin() {
-    return (
-        <div className="wrapper">
-      <div className="container-enter">
+function Signup() {
+  return (
+    <div className="wrapper">
+      <div className="container-signup">
         <div className="modal__block">
-          <form className="modal__form-login" action="#">
+          <form className="modal__form-login">
             <a href="../">
               <div className="modal__logo">
                 <img src="../img/logo_modal.png" alt="logo" />
@@ -16,22 +16,25 @@ function Signin() {
               placeholder="Почта"
             />
             <input
-              className="modal__input password"
+              className="modal__input password-first"
               type="password"
               name="password"
               placeholder="Пароль"
             />
-            <button type="button" className="modal__btn-enter">
-                <a href="/">Войти</a>
-            </button>
-            <button type="button" className="modal__btn-signup">
-                <a href="/">Зарегистрироваться</a>
+            <input
+              className="modal__input password-double"
+              type="password"
+              name="password"
+              placeholder="Повторите пароль"
+            />
+            <button type="button" className="modal__btn-signup-ent">
+              <a href="../index.html">Зарегистрироваться</a>
             </button>
           </form>
         </div>
       </div>
     </div>
-    )
+  )
 }
 
-export default Signin;
+export default Signup;
