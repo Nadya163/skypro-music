@@ -1,39 +1,12 @@
-import './App.css'
+import './App.css';
+import Nav from './components/Nav';
 
 function App() {
   return (
       <div className="wrapper">
         <div className="container">
           <main className="main">
-            <nav className="main__nav nav">
-              <div className="nav__logo logo">
-                <img className="logo__image" src="img/logo.png" alt="logo" />
-              </div>
-              <div className="nav__burger burger">
-                <span className="burger__line" />
-                <span className="burger__line" />
-                <span className="burger__line" />
-              </div>
-              <div className="nav__menu menu">
-                <ul className="menu__list">
-                  <li className="menu__item">
-                    <a href="/" className="menu__link">
-                      Главное
-                    </a>
-                  </li>
-                  <li className="menu__item">
-                    <a href="/" className="menu__link">
-                      Мой плейлист
-                    </a>
-                  </li>
-                  <li className="menu__item">
-                    <a href="../signin.html" className="menu__link">
-                      Войти
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
+            <Nav />
             <div className="main__centerblock centerblock">
               <div className="centerblock__search search">
                 <svg className="search__svg">
@@ -627,11 +600,11 @@ function App() {
                         </div>
                       </div>
                       <div className="track__author">
-  <a className="track__author-link" aria-label="Author:" href="http://">Автор</a>
-</div>
-<div className="track__album">
-  <a className="track__album-link" aria-label="Album" href="http://">Альбом</a>
-</div>
+                        <a className="track__author-link" aria-label="Author:" href="http://">Автор</a>
+                      </div>
+                      <div className="track__album">
+                        <a className="track__album-link" aria-label="Album" href="http://">Альбом</a>
+                      </div>
                       <div className="track__time">
                         <svg className="track__time-svg" alt="time">
                           <use xlinkHref="img/icon/sprite.svg#icon-like" />
