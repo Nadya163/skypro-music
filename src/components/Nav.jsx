@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import '../App.css';
 
 function Logo() {
@@ -5,16 +6,6 @@ function Logo() {
         <div className="nav__logo logo">
             <img className="logo__image" src="img/logo.png" alt="logo" />
         </div>
-    );
-}
-
-function Burger() {
-    return (
-        <div className="nav__burger burger">
-        <span className="burger__line" />
-        <span className="burger__line" />
-        <span className="burger__line" />
-      </div>
     );
 }
 
@@ -29,19 +20,43 @@ function MenuItem({ link, text }) {
 }
 
 function Nav() {
-    return (
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleKeyDown = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          setIsOpen(!isOpen);
+        }
+      };
+  
+  return (
     <nav className="main__nav nav">
-    <Logo />
-    <Burger />
-    <div className="nav__menu menu">
-      <ul className="menu__list">
-        <MenuItem link="/" text="Главное" />
-        <MenuItem link="/" text="Мой плейлист" />
-        <MenuItem link="Signin.js" text="Войти" />
-      </ul>
-    </div>
-  </nav>
-    );
+      <div className='header'>  
+      <Logo />
+        <div
+        className={`nav__burger burger ${isOpen ? 'open' : ''}`}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        role="button"
+        tabIndex="0"
+      >
+        <span className="burger__line" />
+        <span className="burger__line" />
+        <span className="burger__line" />
+      </div>
+      <div className={`nav__menu menu ${isOpen ? 'open' : ''}`}>
+        <ul className="menu__list">
+          <MenuItem link="/" text="Главное" />
+          <MenuItem link="/" text="Мой плейлист" />
+          <MenuItem link="Signin.js" text="Войти" />
+        </ul>
+      </div>      
+      </div>
+    </nav>
+  );
 }
 
 export default Nav;
