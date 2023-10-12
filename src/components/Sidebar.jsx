@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 function Personal({ text }) {
     return (
         <div className="sidebar__personal">
@@ -25,18 +27,52 @@ function SidebarBlock({ img }) {
     )
 }
 
+function Loading() {
+  return (
+    <div className="sidebar__item">
+    <a className="sidebar__link" href="/">
+      <img
+        className="sidebar__img"
+        src="img/icon/collectionPlaylist.svg"
+        alt="day's playlist"
+      />
+    </a>
+  </div>
+)
+}
+
 function Sidebar() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
     return (
         <div className="main__sidebar sidebar">
             <Personal text="Sergey.Ivanov" />
             <div className="sidebar__block">
               <div className="sidebar__list">
-                <SidebarBlock img="img/playlist01.png" />
-                <SidebarBlock img="img/playlist02.png" />
-                <SidebarBlock img="img/playlist03.png" />
-              </div>
-            </div>
-        </div>
+              {isLoading ? (
+          <>
+          <Loading />
+          <Loading />
+          <Loading />
+          </>
+        ) : (
+          <>
+            <SidebarBlock img="img/playlist01.png" />
+            <SidebarBlock img="img/playlist02.png" />
+            <SidebarBlock img="img/playlist03.png" />
+          </>
+        )}
+      </div>
+    </div>
+    </div>
     )
 }
 
