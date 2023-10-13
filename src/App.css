@@ -927,3 +927,63 @@ body {
 .volume__progress-line {
   width: 109px;
 }
+
+@keyframes fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.blinking {
+  animation: fade 1s infinite alternate;
+  transition: opacity 0.1s ease-out;
+}
+
+.menu__author {
+  height: 305px;
+  width: 248px;
+  display: inline-flex;
+  padding: 34px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 12px;
+  background: rgba(49, 49, 49, 1);
+}
+
+.box__menu {
+  overflow-y: scroll;
+}
+
+.box__menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.box__menu::-webkit-scrollbar-track {
+  background-color: rgba(75, 73, 73, 1);
+  border-radius: 10px;
+}
+
+.box__menu::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+}
+
+.list__author {
+  margin-bottom: 28px;
+}
+
+.list__author_link {
+  color: #FFF;
+font-variant-numeric: lining-nums proportional-nums;
+font-family: StratosSkyeng;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 18px;
+letter-spacing: 0.016px;
+}
+
+.list__author_link:hover {
+  color: rgba(182, 114, 255, 1);
+  text-decoration: underline;
+}

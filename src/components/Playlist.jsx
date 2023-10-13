@@ -40,28 +40,28 @@ function Loading() {
     <div className="playlist__track track">
       <div className="track__title">
       <div className="track__title-image">
-            <svg className="track__title-svg" alt="music">
+            <svg className="track__title-svg blinking" alt="music">
               <use xlinkHref="img/icon/sprite.svg" />
             </svg>
           </div>
         <div className="track__title-text">
-          <div className="track__title-link">
+          <div className="track__title-link blinking">
             <img src="img/icon/track.svg" alt="" /></div>
         </div>
       </div>
       <div className="track__author">
-        <div className="track__author-link">
+        <div className="track__author-link blinking">
           <img src="img/icon/album.svg" alt="" /></div>
       </div>
       <div className="track__album">
-        <div className="track__album-link">
+        <div className="track__album-link blinking">
           <img src="img/icon/author.svg" alt="" /></div>
       </div>
       <div className="track__time">
-        <svg className="track__time-svg" alt="time">
+        <svg className="track__time-svg blinking" alt="time">
           <use xlinkHref="img/icon/sprite.svg#icon-like" />
         </svg>
-        <span className="track__time-text">0:00</span>
+        <span className="track__time-text blinking">0:00</span>
       </div>
     </div>
 )

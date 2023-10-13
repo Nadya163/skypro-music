@@ -27,10 +27,25 @@ function SidebarBlock({ img }) {
     )
 }
 
+function LoadingPersonal() {
+  return (
+    <div className="sidebar__personal">
+    <p className="sidebar__personal-name blinking">
+      <img src="img/icon/playlistName.svg" alt="" />
+    </p>
+    <div className="sidebar__icon">
+      <svg alt="logout">
+        <use xlinkHref="img/icon/sprite.svg" />
+      </svg>
+    </div>
+  </div>
+)
+}
+
 function Loading() {
   return (
     <div className="sidebar__item">
-    <a className="sidebar__link" href="/">
+    <a className="sidebar__link blinking" href="/">
       <img
         className="sidebar__img"
         src="img/icon/collectionPlaylist.svg"
@@ -54,7 +69,18 @@ function Sidebar() {
 
     return (
         <div className="main__sidebar sidebar">
+        {isLoading ? (
+          <>
+          {/* Скелет пользователя */}
+          <LoadingPersonal />
+
+          </>
+        ) : (
+          <>
+          {/* Авторизованный пользователь */}
             <Personal text="Sergey.Ivanov" />
+          </>
+        )}
             <div className="sidebar__block">
               <div className="sidebar__list">
               {isLoading ? (
