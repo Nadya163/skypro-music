@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 function PlaylistItem({ track, together, author, album, time }) {
     return (
         <div className="playlist__track track">
@@ -33,10 +35,67 @@ function PlaylistItem({ track, together, author, album, time }) {
     )
 }
 
+function Loading() {
+  return (
+    <div className="playlist__track track">
+      <div className="track__title">
+      <div className="track__title-image">
+            <svg className="track__title-svg blinking" alt="music">
+              <use xlinkHref="img/icon/sprite.svg" />
+            </svg>
+          </div>
+        <div className="track__title-text">
+          <div className="track__title-link blinking">
+            <img src="img/icon/track.svg" alt="" /></div>
+        </div>
+      </div>
+      <div className="track__author">
+        <div className="track__author-link blinking">
+          <img src="img/icon/album.svg" alt="" /></div>
+      </div>
+      <div className="track__album">
+        <div className="track__album-link blinking">
+          <img src="img/icon/author.svg" alt="" /></div>
+      </div>
+      <div className="track__time">
+        <svg className="track__time-svg blinking" alt="time">
+          <use xlinkHref="img/icon/sprite.svg#icon-like" />
+        </svg>
+        <span className="track__time-text blinking">0:00</span>
+      </div>
+    </div>
+)
+}
+
 function Playlist() {
-    return (
-        <div className="content__playlist playlist">
-            <div className="playlist__item">
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="content__playlist playlist">
+      <div className="playlist__item">
+        {isLoading ? (
+          <>
+              <Loading />
+              <Loading />
+              <Loading />
+              <Loading />
+              <Loading />
+              <Loading />
+              <Loading />
+              <Loading />
+              <Loading />
+              <Loading />
+          </>
+        ) : (
+          <>
                 <PlaylistItem track="Guilt" author="Nero" album="Welcome Reality" time="4:44" />
                 <PlaylistItem track="Elektro" author="Dynoro, Outwork, Mr. Gee" album="Elektro" time="2:22" />
                 <PlaylistItem track="I’m Fire" author="Ali Bakgor" album="I’m Fire" time="2:22" />
@@ -47,9 +106,11 @@ function Playlist() {
                 <PlaylistItem track="Knives n Cherries" author="minthaze" album="Captivating" time="1:48" />
                 <PlaylistItem track="How Deep Is Your Love" author="Calvin Harris, Disciples" album="How Deep Is Your Love" time="3:32" />
                 <PlaylistItem track="Morena" author="Tom Boxer" album="Soundz Made in Romania" time="3:36" />
-            </div>
-        </div>
-);
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Playlist;
