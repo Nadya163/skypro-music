@@ -14,7 +14,7 @@
 a,
 a:visited {
   text-decoration: none;
-  font-family: "StratosSkyeng", sans-serif;
+  font-family: 'StratosSkyeng', sans-serif;
   cursor: pointer;
 }
 
@@ -28,10 +28,12 @@ ul li {
 }
 
 @font-face {
-  font-family: "StratosSkyeng";
-  src: local("StratosSkyeng"), local("StratosSkyeng"),
-    url("/public/fonts/StratosSkyeng.woff2") format("woff2"),
-    url("/public/fonts/StratosSkyeng.woff") format("woff");
+  font-family: 'StratosSkyeng';
+  src:
+    local('StratosSkyeng'),
+    local('StratosSkyeng'),
+    url('/public/fonts/StratosSkyeng.woff2') format('woff2'),
+    url('/public/fonts/StratosSkyeng.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
@@ -40,7 +42,7 @@ html,
 body {
   width: 100%;
   height: 100%;
-  font-family: "StratosSkyeng", sans-serif;
+  font-family: 'StratosSkyeng', sans-serif;
   color: #ffffff;
 }
 
@@ -794,7 +796,7 @@ body {
   display: grid;
   -ms-grid-columns: auto 1fr;
   grid-template-columns: auto 1fr;
-  grid-template-areas: "image author" "image album";
+  grid-template-areas: 'image author' 'image album';
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -932,8 +934,12 @@ body {
 }
 
 @keyframes fade {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .blinking {
@@ -942,7 +948,7 @@ body {
 }
 
 .menu__author {
-   height: 305px;
+  height: 305px;
   width: 248px;
   display: inline-flex;
   padding: 34px;
@@ -957,6 +963,7 @@ body {
 
 .author__list {
   overflow-y: scroll;
+  width: 100%;
 }
 
 .author__list::-webkit-scrollbar {
@@ -964,7 +971,7 @@ body {
 }
 
 .author__list::-webkit-scrollbar-track {
-  background-color: rgba(75, 73, 73, 1); 
+  background-color: rgba(75, 73, 73, 1);
   border-radius: 10px;
 }
 
@@ -978,14 +985,14 @@ body {
 }
 
 .list__author_link {
-  color: #FFF;
-font-variant-numeric: lining-nums proportional-nums;
-font-family: StratosSkyeng;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 18px;
-letter-spacing: 0.016px;
+  color: #fff;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.016px;
 }
 
 .list__author_link:hover {
@@ -1002,14 +1009,14 @@ letter-spacing: 0.016px;
 
 .filter__length {
   position: absolute;
-    width: 26px;
-    height: 26px;
-    color: #fff;
-    background-color: #ab61ff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: -13px;
-    right: 8px;
+  width: 26px;
+  height: 26px;
+  color: #fff;
+  background-color: #ab61ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -13px;
+  right: 8px;
 }
