@@ -20,7 +20,7 @@ function App() {
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
             <FilterComponents />
-            <S.CenterblockContent>
+            <S.CenterblockContent> 
               <PlaylistTitle />
               <Playlist />
             </S.CenterblockContent>
