@@ -1,3 +1,6 @@
+// export const Styled = styled.div``;
+
+
 function Signup() {
   return (
     <div className="wrapper">

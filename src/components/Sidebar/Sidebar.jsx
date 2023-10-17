@@ -1,58 +1,57 @@
 import { useState, useEffect } from "react";
+import * as S from './Sidebar.style'
 
 function Personal({ text }) {
     return (
-        <div className="sidebar__personal">
-        <p className="sidebar__personal-name">{text}</p>
-        <div className="sidebar__icon">
+        <S.SidebarPersonal>
+        <S.SidebarPersonalName>{text}</S.SidebarPersonalName>
+        <S.SidebarIcon>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout" />
           </svg>
-        </div>
-      </div>
+        </S.SidebarIcon>
+      </S.SidebarPersonal>
     )
 }
 
 function SidebarBlock({ img }) {
     return (
-        <div className="sidebar__item">
-        <a className="sidebar__link" href="/">
-          <img
-            className="sidebar__img"
+        <S.SidebarItem>
+        <S.SidebarLink href="/">
+          <S.SidebarImg
             src={img}
             alt="day's playlist"
           />
-        </a>
-      </div>
+        </S.SidebarLink>
+      </S.SidebarItem>
     )
 }
 
 function LoadingPersonal() {
   return (
-    <div className="sidebar__personal">
-    <p className="sidebar__personal-name blinking">
+    <S.SidebarPersonal>
+    <S.SidebarPersonalNameloading>
       <img src="img/icon/playlistName.svg" alt="" />
-    </p>
-    <div className="sidebar__icon">
+    </S.SidebarPersonalNameloading>
+    <S.SidebarIcon>
       <svg alt="logout">
         <use xlinkHref="img/icon/sprite.svg" />
       </svg>
-    </div>
-  </div>
+    </S.SidebarIcon>
+  </S.SidebarPersonal>
 )
 }
 
 function Loading() {
   return (
-    <div className="sidebar__item">
-    <a className="sidebar__link blinking" href="/">
-      <img
-        className="sidebar__img"
+    <S.SidebarItem>
+    <S.SidebarLinkLoading href="/">
+      <S.SidebarImg
         src="img/icon/collectionPlaylist.svg"
         alt="day's playlist"
       />
-    </a>
-  </div>
+    </S.SidebarLinkLoading>
+  </S.SidebarItem>
 )
 }
 
@@ -68,7 +67,7 @@ function Sidebar() {
   }, []);
 
     return (
-        <div className="main__sidebar sidebar">
+        <S.MainSidebar>
         {isLoading ? (
           <>
           {/* Скелет пользователя */}
@@ -81,8 +80,8 @@ function Sidebar() {
             <Personal text="Sergey.Ivanov" />
           </>
         )}
-            <div className="sidebar__block">
-              <div className="sidebar__list">
+            <S.SidebarBlock>
+              <S.SidebarList>
               {isLoading ? (
           <>
           <Loading />
@@ -96,10 +95,11 @@ function Sidebar() {
             <SidebarBlock img="img/playlist03.png" />
           </>
         )}
-      </div>
-    </div>
-    </div>
+      </S.SidebarList>
+    </S.SidebarBlock>
+    </S.MainSidebar>
     )
 }
 
 export default Sidebar;
+

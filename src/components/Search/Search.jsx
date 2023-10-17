@@ -1,16 +1,17 @@
+import * as S from './Search.style'
+
 function Search() {
     return (
-        <div className="centerblock__search search">
-        <svg className="search__svg">
+        <S.CenterblockSearch>
+        <S.SearchSvg>
           <use href="img/icon/sprite.svg#icon-search" />
-        </svg>
-        <input
-          className="search__text"
+        </S.SearchSvg>
+        <S.SearchText
           type="search"
           placeholder="Поиск"
           name="search"
         />
-      </div>
+      </S.CenterblockSearch>
     );
 }
 
