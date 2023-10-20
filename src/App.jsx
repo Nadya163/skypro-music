@@ -18,7 +18,7 @@ function App() {
           <Nav />
           <S.MainCenterblock>
             <Search />
-            <S.CenterblockH2>Треки</S.CenterblockH2>
+            <S.CenterblockH2>Треки</S.CenterblockH2> 
             <FilterComponents />
             <S.CenterblockContent>
               <PlaylistTitle />
