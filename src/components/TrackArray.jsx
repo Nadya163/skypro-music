@@ -37,6 +37,7 @@ const trackArray = [
   },
   {
     track: 'Run Run',
+    together: '(feat. AR/CO)',
     author: 'Jaded, Will Clarke, AR/CO',
     album: 'Run Run',
     time: '2:54',
@@ -46,6 +47,7 @@ const trackArray = [
   },
   {
     track: 'Eyes on Fire',
+    together: '(Zeds Dead Remix)',
     author: 'Blue Foundation, Zeds Dead',
     album: 'Eyes on Fire',
     time: '5:20',
@@ -55,6 +57,7 @@ const trackArray = [
   },
   {
     track: 'Mucho Bien',
+    together: '(Hi Profile Remix)',
     author: 'HYBIT, Mr. Black, Offer Nissim, Hi Profile',
     album: 'Mucho Bien',
     time: '3:41',
