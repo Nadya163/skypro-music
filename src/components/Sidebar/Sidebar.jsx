@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import * as S from './Sidebar.style'
+import { Link } from "react-router-dom";
+import * as S from './Sidebar.style';
+import sidebarArray from "../SidebarArray";
+
 
 function Personal({ text }) {
     return (
@@ -11,19 +14,6 @@ function Personal({ text }) {
           </svg>
         </S.SidebarIcon>
       </S.SidebarPersonal>
-    )
-}
-
-function SidebarBlock({ img }) {
-    return (
-        <S.SidebarItem>
-        <S.SidebarLink href="/">
-          <S.SidebarImg
-            src={img}
-            alt="day's playlist"
-          />
-        </S.SidebarLink>
-      </S.SidebarItem>
     )
 }
 
@@ -89,11 +79,18 @@ function Sidebar() {
           <Loading />
           </>
         ) : (
-          <>
-            <SidebarBlock img="img/playlist01.png" />
-            <SidebarBlock img="img/playlist02.png" />
-            <SidebarBlock img="img/playlist03.png" />
-          </>
+            <>
+              {sidebarArray.map((item) => (
+                        <S.SidebarItem key={item.id}>
+                        <S.SidebarLink as={Link} to={`/category/${item.id}`}>
+                          <S.SidebarImg
+                            src={item.img}
+                            alt={item.name}
+                          />
+                        </S.SidebarLink>
+                      </S.SidebarItem>
+              ))}
+            </>
         )}
       </S.SidebarList>
     </S.SidebarBlock>
