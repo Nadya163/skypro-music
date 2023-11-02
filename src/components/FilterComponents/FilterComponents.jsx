@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import * as S from './FilterComponents.style'
-import trackArray from '../TrackArray'
 
-function FilterComponents() {
-  const [isMenuOpen, setIsMenuOpen] = useState(null)
+function FilterComponents({ todos }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(null);
+
   const toggleVisibleFilter = (filter) => {
     setIsMenuOpen(isMenuOpen === filter ? null : filter)
   }
@@ -20,10 +20,10 @@ function FilterComponents() {
         </S.FilterButton>
         {isMenuOpen === 'author' && (
           <>
-            <S.FilterLength>{trackArray.length}</S.FilterLength>
+            <S.FilterLength>{todos.length}</S.FilterLength>
             <S.MenuAuthor>
               <S.AuthorList>
-                {trackArray.map((item) => (
+                {todos.map((item) => (
                   <S.ListAuthor key={item.id}>
                     <S.ListAuthorLink href="/">
                       {item.author}
@@ -44,10 +44,10 @@ function FilterComponents() {
         </S.FilterButton>
         {isMenuOpen === 'year' && (
           <>
-            <S.FilterLength>{trackArray.length}</S.FilterLength>
+            <S.FilterLength>{todos.length}</S.FilterLength>
             <S.MenuAuthor>
               <S.AuthorList>
-                {trackArray.map((item) => (
+                {todos.map((item) => (
                   <S.ListAuthor key={item.id}>
                     <S.ListAuthorLink href="/">
                       {item.year}
@@ -68,10 +68,10 @@ function FilterComponents() {
         </S.FilterButton>
         {isMenuOpen === 'genre' && (
           <>
-            <S.FilterLength>{trackArray.length}</S.FilterLength>
+            <S.FilterLength>{todos.length}</S.FilterLength>
             <S.MenuAuthor>
               <S.AuthorList>
-                {trackArray.map((item) => (
+                {todos.map((item) => (
                   <S.ListAuthor key={item.id}>
                     <S.ListAuthorLink href="/">
                       {item.genre}

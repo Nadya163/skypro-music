@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import * as S from './Playlist.style'
-import trackArray from '../TrackArray'
-import getTodos from '../../api'
 
-function PlaylistItem({ track, together, author, album, time }) {
+function PlaylistItem({ track, together, author, file, album, time }) {
   return (
     <S.PlaylistTrack>
       <S.TrackTitle>
@@ -13,7 +12,7 @@ function PlaylistItem({ track, together, author, album, time }) {
           </S.TratrackTitleSvg>
         </S.TrackTitleImage>
         <div>
-          <S.TrackTitleLink href="http://">
+          <S.TrackTitleLink as={Link} to={file}>
             {track} <S.TrackTitleSpan> {together} </S.TrackTitleSpan>
           </S.TrackTitleLink>
         </div>
@@ -73,9 +72,8 @@ function Loading() {
   )
 }
 
-function Playlist() {
+function Playlist({ todos, setCurrentTodo }) {
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -85,35 +83,26 @@ function Playlist() {
     return () => clearTimeout(timer)
   }, [])
 
-const [todosList, setTodosList] = useState([]);
-
-useEffect(() => {
-  console.log("use effect");
-  getTodos().then((todos) => {
-    console.log(todos);
-    setTodosList(todos)
-  });
-}, [])
-
   return (
     <S.ContentPlaylist>
       <S.PlaylistItem>
         {isLoading ? (
           <>
-            {trackArray.map((index) => (
-              <Loading key={index} />
+            {todos.map((todo) => (
+              <Loading key={todo} />
             ))}
           </>
         ) : (
           <div>
-            {todosList.map((track) => (
+            {todos.map((todo) => (
               <PlaylistItem
-                key={track.id}
-                track={track.name}
-                together={track.together}
-                author={track.author}
-                album={track.album}
-                time={track.time}
+                onClick={() => setCurrentTodo(todo)}
+                key={todo.id}
+                track={todo.name}
+                together={todo.together}
+                author={todo.author}
+                album={todo.album}
+                time={todo.duration_in_seconds}
               />
             ))}
           </div>

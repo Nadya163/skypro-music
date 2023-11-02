@@ -78,6 +78,17 @@ export const TrackTitleLink = styled.a`
     font-size: 16px;
     line-height: 24px;
     color: #ffffff;
+    &:hover {
+        border-color: #d9b6ff;
+        color: #d9b6ff;
+        cursor: pointer;
+      }
+      
+      &:active {
+        border-color: #ad61ff;
+        color: #ad61ff;
+        cursor: pointer;
+      }
 `;
 
 export const TrackTitleLinkLoading = styled.div`

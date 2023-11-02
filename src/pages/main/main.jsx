@@ -9,12 +9,14 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Bar from '../../components/Bar/Bar';
 
 
-export default function Main() {
+export default function Main({ todos, currentTodo, setCurrentTodo }) {
   const [user, setUser] = useState(null);
 
   const handleLogin = () => setUser({ login: "taradam" });
 
   const handleLogout = () => setUser(null);
+
+  
     return (
       <>
           <S.Main>
@@ -25,15 +27,15 @@ export default function Main() {
           <S.MainCenterblock>
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
-            <FilterComponents />
+            <FilterComponents todos={todos} />
             <S.CenterblockContent>
               <PlaylistTitle />
-              <Playlist />
+              <Playlist todos={todos} setCurrentTodo={setCurrentTodo} />
             </S.CenterblockContent>
           </S.MainCenterblock>
           <Sidebar />
+          <Bar todos={todos} currentTodo={currentTodo} />
         </S.Main>
-        <Bar />
         <footer className="footer" />
       </>
     );

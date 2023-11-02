@@ -45,7 +45,7 @@ function Loading() {
     )
 }
 
-function Bar() {
+function Bar({ currentTodo }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -57,6 +57,7 @@ function Bar() {
   }, []);
     return (
       <S.Bar>
+      {currentTodo ? (
         <S.BarContent>
           <S.BarPlayerProgress />
           <S.Column>
@@ -99,7 +100,7 @@ function Bar() {
                   ) : (
                     <>
                     {/* Название трека и альбом */}
-                        <TrackPlay album="Ты та..." author="Баста" />
+                        <TrackPlay album={currentTodo.text} author={currentTodo.text} />
                         </>
                 )} 
                   </S.PlayerTrackPlay> 
@@ -134,7 +135,9 @@ function Bar() {
             </S.BarVolumeBlock>
           </S.Column>
         </S.BarContent>
+              ) : null}
       </S.Bar>
+
     )
 }
 
