@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import * as S from './Playlist.style'
 import trackArray from '../TrackArray'
+import getTodos from '../../api'
 
 function PlaylistItem({ track, together, author, album, time }) {
   return (
@@ -73,7 +74,8 @@ function Loading() {
 }
 
 function Playlist() {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -82,6 +84,16 @@ function Playlist() {
 
     return () => clearTimeout(timer)
   }, [])
+
+const [todosList, setTodosList] = useState([]);
+
+useEffect(() => {
+  console.log("use effect");
+  getTodos().then((todos) => {
+    console.log(todos);
+    setTodosList(todos)
+  });
+}, [])
 
   return (
     <S.ContentPlaylist>
@@ -94,10 +106,10 @@ function Playlist() {
           </>
         ) : (
           <div>
-            {trackArray.map((track) => (
+            {todosList.map((track) => (
               <PlaylistItem
                 key={track.id}
-                track={track.track}
+                track={track.name}
                 together={track.together}
                 author={track.author}
                 album={track.album}
