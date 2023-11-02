@@ -17,9 +17,8 @@ function AppRoutes({ user, onClick }) {
                 <Route path="/" element={<Main />} />
                 <Route path="/myplaylist" element={<MyPlaylist />} /> 
                 <Route path="/category/:id" element={<Category />} />
+                <Route path="*" element={<Error />} /> 
             </Route>
-
-            <Route path="*" element={<Error />} /> 
         </Routes>
 };
 
