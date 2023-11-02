@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import * as S from './Nav.style'
+import { Link } from 'react-router-dom';
+import * as S from './Nav.style';
 
 function Logo() {
     return (
@@ -12,7 +13,7 @@ function Logo() {
 function MenuItem({ link, text }) {
     return (
     <S.MenuItem>
-    <S.MenuLink href={link}>
+    <S.MenuLink as={Link} to={link}>
       {text}
     </S.MenuLink>
   </S.MenuItem>
@@ -50,8 +51,8 @@ function Nav() {
         <S.NavMenu className={isOpen ? 'open' : ''}>
           <S.MenuList>
             <MenuItem link="/" text="Главное" />
-            <MenuItem link="/" text="Мой плейлист" />
-            <MenuItem link="Signin.js" text="Войти" />
+            <MenuItem link="/myplaylist" text="Мой плейлист" />
+            <MenuItem link="/login" text="Войти" />
           </S.MenuList>
         </S.NavMenu>
       )}      
