@@ -9,20 +9,20 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Bar from '../../components/Bar/Bar';
 
 
-export default function Main({ todos, currentTodo, setCurrentTodo }) {
+export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError }) {
   const [user, setUser] = useState(null);
 
   const handleLogin = () => setUser({ login: "taradam" });
 
   const handleLogout = () => setUser(null);
 
-  
+  console.log(addTodoError);
     return (
       <>
           <S.Main>
           <Nav
-          user={user}
-          onAuthButtonClick={user ? handleLogout : handleLogin}
+            user={user}
+            onAuthButtonClick={user ? handleLogout : handleLogin}
           />
           <S.MainCenterblock>
             <Search />
@@ -30,13 +30,20 @@ export default function Main({ todos, currentTodo, setCurrentTodo }) {
             <FilterComponents todos={todos} />
             <S.CenterblockContent>
               <PlaylistTitle />
-              <Playlist todos={todos} setCurrentTodo={setCurrentTodo} />
+              {addTodoError && <p>Не удалось загрузить плейлист, попробуйте позже: {addTodoError}.</p>}
+              <Playlist
+                todos={todos}
+                handleTodoClick={handleTodoClick}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                currentTodo={currentTodo}
+              />
             </S.CenterblockContent>
           </S.MainCenterblock>
-          <Sidebar />
-          <Bar todos={todos} currentTodo={currentTodo} />
+          <Sidebar isLoading={isLoading} setIsLoading={setIsLoading} />
+          {currentTodo ? (<Bar currentTodo={currentTodo} />) : null}
         </S.Main>
         <footer className="footer" />
       </>
     );
-  };
+}

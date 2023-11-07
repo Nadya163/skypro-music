@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import * as S from './Bar.style'
 
 function TrackPlay({ author, album }) {
@@ -23,41 +22,33 @@ function TrackPlay({ author, album }) {
     )
 }
 
-function Loading() {
-  return (
-    <S.TrackPlayContain>
-        <S.TrackPlayImage>
-          <S.TrackPlaySvgLoading alt="music">
-            <use xlinkHref="img/icon/sprite.svg" />
-          </S.TrackPlaySvgLoading>
-        </S.TrackPlayImage>
-        <S.TrackPlayAlbum>
-          <S.TrackPlayAlbumLinkLoading>
-            <img src="img/icon/playlistName.svg" alt="" />
-          </S.TrackPlayAlbumLinkLoading>
-          <S.TrackPlayAuthor>
-          <S.TrackPlayAuthorLinkLoading className="track-play__author-link blinking">
-            <img src="img/icon/playlistName.svg" alt="" />
-          </S.TrackPlayAuthorLinkLoading>
-        </S.TrackPlayAuthor>
-        </S.TrackPlayAlbum>
-    </S.TrackPlayContain>
-    )
-}
+// function Loading() {
+//   return (
+//     <S.TrackPlayContain>
+//         <S.TrackPlayImage>
+//           <S.TrackPlaySvgLoading alt="music">
+//             <use xlinkHref="img/icon/sprite.svg" />
+//           </S.TrackPlaySvgLoading>
+//         </S.TrackPlayImage>
+//         <S.TrackPlayAlbum>
+//           <S.TrackPlayAlbumLinkLoading>
+//             <img src="img/icon/playlistName.svg" alt="" />
+//           </S.TrackPlayAlbumLinkLoading>
+//           <S.TrackPlayAuthor>
+//           <S.TrackPlayAuthorLinkLoading className="track-play__author-link blinking">
+//             <img src="img/icon/playlistName.svg" alt="" />
+//           </S.TrackPlayAuthorLinkLoading>
+//         </S.TrackPlayAuthor>
+//         </S.TrackPlayAlbum>
+//     </S.TrackPlayContain>
+//     )
+// }
 
 function Bar({ currentTodo }) {
-  const [isLoading, setIsLoading] = useState(true);
+  // console.log(currentTodo);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
     return (
-      <S.Bar>
-      {currentTodo ? (
+       <S.Bar>
         <S.BarContent>
           <S.BarPlayerProgress />
           <S.Column>
@@ -91,18 +82,11 @@ function Bar({ currentTodo }) {
                 </S.PlayerBtnShuffle>
                 </S.PlayerControls>
                 <S.PlayerTrackPlay >
-                {isLoading ? (
-                    <>
-                    {/* Скелет */}
+                {/* {isLoading ? (
                     <Loading />
-                  
-                    </>
-                  ) : (
-                    <>
-                    {/* Название трека и альбом */}
-                        <TrackPlay album={currentTodo.text} author={currentTodo.text} />
-                        </>
-                )} 
+                  ) : ( */}
+                    <TrackPlay album={currentTodo.name} author={currentTodo.author} />
+                {/* )}  */}
                   </S.PlayerTrackPlay> 
                  <S.TrackPlayLikeDis>
                   <S.TrackPlayLike>
@@ -135,9 +119,7 @@ function Bar({ currentTodo }) {
             </S.BarVolumeBlock>
           </S.Column>
         </S.BarContent>
-              ) : null}
       </S.Bar>
-
     )
 }
 

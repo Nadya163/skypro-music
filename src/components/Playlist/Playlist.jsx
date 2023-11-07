@@ -1,41 +1,5 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import * as S from './Playlist.style'
-
-function PlaylistItem({ track, together, author, file, album, time }) {
-  return (
-    <S.PlaylistTrack>
-      <S.TrackTitle>
-        <S.TrackTitleImage>
-          <S.TratrackTitleSvg alt="music">
-            <use xlinkHref="img/icon/sprite.svg#icon-note" />
-          </S.TratrackTitleSvg>
-        </S.TrackTitleImage>
-        <div>
-          <S.TrackTitleLink as={Link} to={file}>
-            {track} <S.TrackTitleSpan> {together} </S.TrackTitleSpan>
-          </S.TrackTitleLink>
-        </div>
-      </S.TrackTitle>
-      <S.TrackAuthor>
-        <S.TrackAuthorLink href="http://">
-          {author}
-        </S.TrackAuthorLink>
-      </S.TrackAuthor>
-      <S.TrackAlbum>
-        <S.TrackAlbumLink href="http://">
-          {album}
-        </S.TrackAlbumLink>
-      </S.TrackAlbum>
-      <div>
-        <S.TrackTimeSvg alt="time">
-          <use xlinkHref="img/icon/sprite.svg#icon-like" />
-        </S.TrackTimeSvg>
-        <S.TrackTimeText>{time}</S.TrackTimeText>
-      </div>
-    </S.PlaylistTrack>
-  )
-}
 
 function Loading() {
   return (
@@ -72,38 +36,52 @@ function Loading() {
   )
 }
 
-function Playlist({ todos, setCurrentTodo }) {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 5000)
-
-    return () => clearTimeout(timer)
-  }, [])
-
+function Playlist({ todos, handleTodoClick, isLoading, setIsLoading }) {
   return (
     <S.ContentPlaylist>
       <S.PlaylistItem>
         {isLoading ? (
           <>
             {todos.map((todo) => (
-              <Loading key={todo} />
+              <Loading 
+                key={todo.id}
+                setIsLoading={setIsLoading}
+              />
             ))}
           </>
         ) : (
           <div>
             {todos.map((todo) => (
-              <PlaylistItem
-                onClick={() => setCurrentTodo(todo)}
-                key={todo.id}
-                track={todo.name}
-                together={todo.together}
-                author={todo.author}
-                album={todo.album}
-                time={todo.duration_in_seconds}
-              />
+              <S.PlaylistTrack key={todo.id}>
+      <S.TrackTitle>
+        <S.TrackTitleImage>
+          <S.TratrackTitleSvg alt="music">
+            <use xlinkHref="img/icon/sprite.svg#icon-note" />
+          </S.TratrackTitleSvg>
+        </S.TrackTitleImage>
+        <div>
+          <S.TrackTitleLink as={Link} to={todo.file} onClick={() => handleTodoClick(todo)}>
+            {todo.name} <S.TrackTitleSpan> {todo.together} </S.TrackTitleSpan>
+          </S.TrackTitleLink>
+        </div>
+      </S.TrackTitle>
+      <S.TrackAuthor>
+        <S.TrackAuthorLink href="http://">
+          {todo.author}
+        </S.TrackAuthorLink>
+      </S.TrackAuthor>
+      <S.TrackAlbum>
+        <S.TrackAlbumLink href="http://">
+          {todo.album}
+        </S.TrackAlbumLink>
+      </S.TrackAlbum>
+      <div>
+        <S.TrackTimeSvg alt="time">
+          <use xlinkHref="img/icon/sprite.svg#icon-like" />
+        </S.TrackTimeSvg>
+        <S.TrackTimeText>{todo.duration_in_seconds}</S.TrackTimeText>
+      </div>
+    </S.PlaylistTrack>
             ))}
           </div>
         )}
@@ -112,4 +90,4 @@ function Playlist({ todos, setCurrentTodo }) {
   )
 }
 
-export default Playlist
+export default Playlist;

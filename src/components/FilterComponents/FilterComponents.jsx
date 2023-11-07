@@ -50,7 +50,7 @@ function FilterComponents({ todos }) {
                 {todos.map((item) => (
                   <S.ListAuthor key={item.id}>
                     <S.ListAuthorLink href="/">
-                      {item.year}
+                      {item.release_date}
                     </S.ListAuthorLink>
                   </S.ListAuthor>
                 ))}
