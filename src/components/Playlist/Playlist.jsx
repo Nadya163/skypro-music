@@ -36,7 +36,8 @@ function Loading() {
   )
 }
 
-function Playlist({ todos, handleTodoClick, isLoading, setIsLoading }) {
+function Playlist({ todos, handleTodoClick, isLoading, setIsLoading, formatTime }) {
+
   return (
     <S.ContentPlaylist>
       <S.PlaylistItem>
@@ -60,7 +61,7 @@ function Playlist({ todos, handleTodoClick, isLoading, setIsLoading }) {
           </S.TratrackTitleSvg>
         </S.TrackTitleImage>
         <div>
-          <S.TrackTitleLink as={Link} to={todo.file} onClick={() => handleTodoClick(todo)}>
+          <S.TrackTitleLink as={Link} onClick={() => handleTodoClick(todo)}>
             {todo.name} <S.TrackTitleSpan> {todo.together} </S.TrackTitleSpan>
           </S.TrackTitleLink>
         </div>
@@ -79,7 +80,7 @@ function Playlist({ todos, handleTodoClick, isLoading, setIsLoading }) {
         <S.TrackTimeSvg alt="time">
           <use xlinkHref="img/icon/sprite.svg#icon-like" />
         </S.TrackTimeSvg>
-        <S.TrackTimeText>{todo.duration_in_seconds}</S.TrackTimeText>
+        <S.TrackTimeText>{formatTime(todo.duration_in_seconds)}</S.TrackTimeText>
       </div>
     </S.PlaylistTrack>
             ))}

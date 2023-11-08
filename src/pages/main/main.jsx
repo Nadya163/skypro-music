@@ -16,6 +16,12 @@ export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, 
 
   const handleLogout = () => setUser(null);
 
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds.toFixed()}`;
+  };
+
   console.log(addTodoError);
     return (
       <>
@@ -37,11 +43,12 @@ export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, 
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
                 currentTodo={currentTodo}
+                formatTime={formatTime}
               />
             </S.CenterblockContent>
           </S.MainCenterblock>
           <Sidebar isLoading={isLoading} setIsLoading={setIsLoading} />
-          {currentTodo ? (<Bar currentTodo={currentTodo} />) : null}
+          {currentTodo ? (<Bar currentTodo={currentTodo} formatTime={formatTime} />) : null}
         </S.Main>
         <footer className="footer" />
       </>

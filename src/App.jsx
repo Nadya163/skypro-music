@@ -44,9 +44,8 @@ function App() {
     <S.Wrapper>
       <S.Container>
       <AppRoutes user={user}
-        onClick={(todo) => {
+        onClick={() => {
         handleLogin();
-        handleTodoClick(todo);
       }}
          todos={todos}
          setTodos={setTodos}

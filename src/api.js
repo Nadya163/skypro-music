@@ -4,6 +4,6 @@ export default async function getTodos() {
     if(!response.ok) {
         throw new Error("Ощибка сервера")
     }
-        const data = await response.json();
+    const data = await response.json();
     return data;
 };
