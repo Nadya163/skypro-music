@@ -9,32 +9,48 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Bar from '../../components/Bar/Bar';
 
 
-export default function Main() {
+export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError }) {
   const [user, setUser] = useState(null);
 
   const handleLogin = () => setUser({ login: "taradam" });
 
   const handleLogout = () => setUser(null);
+
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds.toFixed()}`;
+  };
+
+  console.log(addTodoError);
     return (
       <>
           <S.Main>
           <Nav
-          user={user}
-          onAuthButtonClick={user ? handleLogout : handleLogin}
+            user={user}
+            onAuthButtonClick={user ? handleLogout : handleLogin}
           />
           <S.MainCenterblock>
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
-            <FilterComponents />
+            <FilterComponents todos={todos} />
             <S.CenterblockContent>
               <PlaylistTitle />
-              <Playlist />
+              {addTodoError && <p>Не удалось загрузить плейлист, попробуйте позже: {addTodoError}.</p>}
+              <Playlist
+                todos={todos}
+                handleTodoClick={handleTodoClick}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                currentTodo={currentTodo}
+                formatTime={formatTime}
+              />
             </S.CenterblockContent>
           </S.MainCenterblock>
-          <Sidebar />
+          <Sidebar isLoading={isLoading} setIsLoading={setIsLoading} />
+          {currentTodo ? (<Bar currentTodo={currentTodo} formatTime={formatTime} />) : null}
         </S.Main>
-        <Bar />
         <footer className="footer" />
       </>
     );
-  };
+}

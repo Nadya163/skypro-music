@@ -1,41 +1,5 @@
-import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import * as S from './Playlist.style'
-import trackArray from '../TrackArray'
-
-function PlaylistItem({ track, together, author, album, time }) {
-  return (
-    <S.PlaylistTrack>
-      <S.TrackTitle>
-        <S.TrackTitleImage>
-          <S.TratrackTitleSvg alt="music">
-            <use xlinkHref="img/icon/sprite.svg#icon-note" />
-          </S.TratrackTitleSvg>
-        </S.TrackTitleImage>
-        <div>
-          <S.TrackTitleLink href="http://">
-            {track} <S.TrackTitleSpan> {together} </S.TrackTitleSpan>
-          </S.TrackTitleLink>
-        </div>
-      </S.TrackTitle>
-      <S.TrackAuthor>
-        <S.TrackAuthorLink href="http://">
-          {author}
-        </S.TrackAuthorLink>
-      </S.TrackAuthor>
-      <S.TrackAlbum>
-        <S.TrackAlbumLink href="http://">
-          {album}
-        </S.TrackAlbumLink>
-      </S.TrackAlbum>
-      <div>
-        <S.TrackTimeSvg alt="time">
-          <use xlinkHref="img/icon/sprite.svg#icon-like" />
-        </S.TrackTimeSvg>
-        <S.TrackTimeText>{time}</S.TrackTimeText>
-      </div>
-    </S.PlaylistTrack>
-  )
-}
 
 function Loading() {
   return (
@@ -72,37 +36,53 @@ function Loading() {
   )
 }
 
-function Playlist() {
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 5000)
-
-    return () => clearTimeout(timer)
-  }, [])
+function Playlist({ todos, handleTodoClick, isLoading, setIsLoading, formatTime }) {
 
   return (
     <S.ContentPlaylist>
       <S.PlaylistItem>
         {isLoading ? (
           <>
-            {trackArray.map((index) => (
-              <Loading key={index} />
+            {todos.map((todo) => (
+              <Loading 
+                key={todo.id}
+                setIsLoading={setIsLoading}
+              />
             ))}
           </>
         ) : (
           <div>
-            {trackArray.map((track) => (
-              <PlaylistItem
-                key={track.id}
-                track={track.track}
-                together={track.together}
-                author={track.author}
-                album={track.album}
-                time={track.time}
-              />
+            {todos.map((todo) => (
+              <S.PlaylistTrack key={todo.id}>
+      <S.TrackTitle>
+        <S.TrackTitleImage>
+          <S.TratrackTitleSvg alt="music">
+            <use xlinkHref="img/icon/sprite.svg#icon-note" />
+          </S.TratrackTitleSvg>
+        </S.TrackTitleImage>
+        <div>
+          <S.TrackTitleLink as={Link} onClick={() => handleTodoClick(todo)}>
+            {todo.name} <S.TrackTitleSpan> {todo.together} </S.TrackTitleSpan>
+          </S.TrackTitleLink>
+        </div>
+      </S.TrackTitle>
+      <S.TrackAuthor>
+        <S.TrackAuthorLink href="http://">
+          {todo.author}
+        </S.TrackAuthorLink>
+      </S.TrackAuthor>
+      <S.TrackAlbum>
+        <S.TrackAlbumLink href="http://">
+          {todo.album}
+        </S.TrackAlbumLink>
+      </S.TrackAlbum>
+      <div>
+        <S.TrackTimeSvg alt="time">
+          <use xlinkHref="img/icon/sprite.svg#icon-like" />
+        </S.TrackTimeSvg>
+        <S.TrackTimeText>{formatTime(todo.duration_in_seconds)}</S.TrackTimeText>
+      </div>
+    </S.PlaylistTrack>
             ))}
           </div>
         )}
@@ -111,4 +91,4 @@ function Playlist() {
   )
 }
 
-export default Playlist
+export default Playlist;

@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as S from './Sidebar.style';
 import sidebarArray from "../SidebarArray";
+
 
 
 function Personal({ text }) {
@@ -52,36 +53,30 @@ function Sidebar() {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
     return (
-        <S.MainSidebar>
+      <S.MainSidebar>
         {isLoading ? (
-          <>
-          {/* Скелет пользователя */}
           <LoadingPersonal />
-
-          </>
         ) : (
-          <>
-          {/* Авторизованный пользователь */}
-            <Personal text="Sergey.Ivanov" />
-          </>
+          <Personal text="Sergey.Ivanov" />
         )}
             <S.SidebarBlock>
               <S.SidebarList>
               {isLoading ? (
           <>
-          <Loading />
-          <Loading />
-          <Loading />
-          </>
+              {sidebarArray.map((item) => (
+                        <Loading key={item.id}
+                                
+              />
+              ))}
+              </>
         ) : (
             <>
               {sidebarArray.map((item) => (
-                        <S.SidebarItem key={item.id}>
+                      <S.SidebarItem key={item.id}>
                         <S.SidebarLink as={Link} to={`/category/${item.id}`}>
                           <S.SidebarImg
                             src={item.img}
@@ -92,8 +87,8 @@ function Sidebar() {
               ))}
             </>
         )}
-      </S.SidebarList>
-    </S.SidebarBlock>
+          </S.SidebarList>
+        </S.SidebarBlock>
     </S.MainSidebar>
     )
 }

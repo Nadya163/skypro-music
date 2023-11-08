@@ -23,7 +23,7 @@ export const Main = styled.main`
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
@@ -35,6 +35,7 @@ export const MainCenterblock = styled.div`
     -ms-flex-positive: 3;
     flex-grow: 3;
     padding: 20px 40px 20px 50px;
+
 `;
 
 export const CenterblockH2 = styled.h2`
