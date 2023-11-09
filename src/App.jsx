@@ -16,16 +16,10 @@ function App() {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
     getTodos()
       .then((todo) => {
         setTodos(todo);
+        setIsLoading(false);
       })
       .catch((error) => {
         setAddTodoError(error.message);

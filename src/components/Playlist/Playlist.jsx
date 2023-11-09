@@ -42,15 +42,54 @@ function Playlist({ todos, handleTodoClick, isLoading, setIsLoading, formatTime 
     <S.ContentPlaylist>
       <S.PlaylistItem>
         {isLoading ? (
-          <>
-            {todos.map((todo) => (
-              <Loading 
-                key={todo.id}
-                setIsLoading={setIsLoading}
-              />
-            ))}
-          </>
-        ) : (
+                    <>
+                      {todos.length === 0 ? (
+                        <Loading setIsLoading={setIsLoading} />
+                      ) : (
+                        todos.map((todo) => (
+                          <S.PlaylistTrack key={todo.id}>
+                            <S.TrackTitle>
+        <S.TrackTitleImage>
+          <S.TratrackTitleSvg alt="music">
+            <use xlinkHref="img/icon/sprite.svg#icon-note" />
+          </S.TratrackTitleSvg>
+        </S.TrackTitleImage>
+        <div>
+          <S.TrackTitleLink >
+            {todo.name} <S.TrackTitleSpan> {todo.together} </S.TrackTitleSpan>
+          </S.TrackTitleLink>
+        </div>
+      </S.TrackTitle>
+      <S.TrackAuthor>
+        <S.TrackAuthorLink href="http://">
+          {todo.author}
+        </S.TrackAuthorLink>
+      </S.TrackAuthor>
+      <S.TrackAlbum>
+        <S.TrackAlbumLink href="http://">
+          {todo.album}
+        </S.TrackAlbumLink>
+      </S.TrackAlbum>
+      <div>
+        <S.TrackTimeSvg alt="time">
+          <use xlinkHref="img/icon/sprite.svg#icon-like" />
+        </S.TrackTimeSvg>
+        <S.TrackTimeText>{formatTime(todo.duration_in_seconds)}</S.TrackTimeText>
+      </div>
+                          </S.PlaylistTrack>
+                        ))
+                      )}
+                    </>
+                  )
+          // <>
+          //   {todos.map((todo) => (
+          //     <Loading 
+          //       key={todo.id}
+          //       setIsLoading={setIsLoading}
+          //     />
+          //   ))}
+          // </>
+         : (
           <div>
             {todos.map((todo) => (
               <S.PlaylistTrack key={todo.id}>

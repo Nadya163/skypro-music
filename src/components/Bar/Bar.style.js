@@ -393,6 +393,7 @@ export const TrackPlayAlbum = styled.div`
     -ms-grid-column: 2;
     grid-area: album;
     min-width: 49px;
+    width: 200px;
 `;
 
 export const TrackPlayAlbumLink = styled.a`
