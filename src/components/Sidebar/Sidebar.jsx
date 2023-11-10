@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import * as S from './Sidebar.style';
 import sidebarArray from "../SidebarArray";
@@ -46,15 +45,7 @@ function Loading() {
 )
 }
 
-function Sidebar() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-    return () => clearTimeout(timer)
-  }, [])
+function Sidebar({ isLoading }) {
 
     return (
       <S.MainSidebar>

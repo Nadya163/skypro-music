@@ -12,6 +12,8 @@ function AppRoutes({ user, onClick, todos, setTodos, isLoading, setIsLoading, cu
   return <Routes>
             <Route path="/login" element={<Login onClick={onClick}  />} /> 
             <Route path="/registration" element={<Registration />} />
+
+            <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
             <Route path="/" element={<Main 
             todos={todos} 
             setTodos={setTodos} 
@@ -21,8 +23,6 @@ function AppRoutes({ user, onClick, todos, setTodos, isLoading, setIsLoading, cu
             handleTodoClick={handleTodoClick}
             addTodoError={addTodoError}
              />} /> 
-
-            <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
 
                 <Route path="/myplaylist" element={<MyPlaylist />} /> 
                 <Route path="/category/:id" element={<Category />} />
