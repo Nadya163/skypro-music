@@ -16,6 +16,10 @@ function App() {
   }
 
   useEffect(() => {
+      const storedLogin = localStorage.getItem('login');
+      if (storedLogin) {
+        setUser({ login: storedLogin });
+      };
     getTodos()
       .then((todo) => {
         setTodos(todo);
@@ -26,11 +30,14 @@ function App() {
       });
   }, []);
 
-  const handleLogin = () =>  {
-    localStorage.setItem('login', 'SetLogin');
-    const getuser = localStorage.getItem('login');
-    setUser(getuser);
+  const handleLogin = (login) =>  {
+    localStorage.setItem('login', login);
   }
+
+  const handleLogout = () => {
+    localStorage.removeItem('login');
+    setUser(null);
+  };
 
   return (
     <>
@@ -40,6 +47,7 @@ function App() {
       <AppRoutes user={user}
         onClick={() => {
         handleLogin();
+        handleLogout();
       }}
          todos={todos}
          setTodos={setTodos}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import * as S from '../../App.style';
 import Nav from '../../components/Nav/Nav';
 import Search from '../../components/Search/Search';
@@ -9,12 +9,13 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Bar from '../../components/Bar/Bar';
 
 
-export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError }) {
-  const [user, setUser] = useState(null);
+export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError, handleLogout, handleLogin, user }) {
+  // const [user, setUser] = useState(null);
 
-  const handleLogin = () => setUser({ login: "taradam" });
+  // const handleLogin = () => setUser({ login: "taradam" });
+  // console.log(handleLogin);
 
-  const handleLogout = () => setUser(null);
+  // const handleLogout = () => setUser(null);
 
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
