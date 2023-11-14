@@ -8,9 +8,9 @@ import Error from "./pages/error/error";
 
 import ProtectedRoute from "./components/protected-route";
 
-function AppRoutes({ user, onClick, todos, setTodos, isLoading, setIsLoading, currentTodo, handleTodoClick, addTodoError, handleLogin, handleLogout }) {
+function AppRoutes({ user, todos, setTodos, isLoading, setIsLoading, currentTodo, handleTodoClick, addTodoError, handleLogin, handleLogout }) {
   return <Routes>
-            <Route path="/login" element={<Login onClick={onClick}  />} /> 
+            <Route path="/login" element={<Login onClick={handleLogin}  />} /> 
             <Route path="/registration" element={<Registration />} />
 
             <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
