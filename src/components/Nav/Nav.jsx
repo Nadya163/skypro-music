@@ -10,10 +10,10 @@ function Logo() {
     );
 }
 
-function MenuItem({ link, text }) {
+function MenuItem({ link, text, handleLogout }) {
     return (
     <S.MenuItem>
-    <S.MenuLink as={Link} to={link}>
+    <S.MenuLink as={Link} to={link} onClick={handleLogout}>
       {text}
     </S.MenuLink>
   </S.MenuItem>

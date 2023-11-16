@@ -11,7 +11,7 @@ import ProtectedRoute from "./components/protected-route";
 function AppRoutes({ user, todos, setTodos, isLoading, setIsLoading, currentTodo, handleTodoClick, addTodoError, handleLogin, handleLogout }) {
   return <Routes>
             <Route path="/login" element={<Login onClick={handleLogin}  />} /> 
-            <Route path="/registration" element={<Registration />} />
+            <Route path="/registration" element={<Registration user={user} />} />
 
             <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
             <Route path="/" element={<Main 

@@ -1,36 +1,94 @@
-import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import * as S from './registration.style';
+import { SignupTodos } from '../../api';
 
 
-function Register() {
+function Register() { 
+  const [error, setError] = useState(null);
+  const user = localStorage.getItem('user');
+  console.log(JSON.parse(user));
+  const navigate = useNavigate();
+
+  const {
+    register,
+    formState: {errors, isValid},
+    handleSubmit,
+    watch,
+    reset,
+  } = useForm({
+    mode: "onBlur"
+  });
+
+  const handleRegister = async (data) => {
+    try {
+      await SignupTodos(data);
+      localStorage.setItem('user', JSON.stringify(data)); 
+      reset();
+      if (!errors) {
+        navigate("/");
+      }
+    } catch (error) {
+      setError(error);
+      console.log("Произошла ошибка:", error);
+    
+    }
+  };
+
+  const validPassword = (value) => {
+    const password = watch("password");
+    if (value === password) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
     return (
       <S.Wrapper>
         <S.ContainerSignup>
           <S.ModalBlock>
-            <S.ModalFormLogin>
-              <Link to="../">
+            <S.ModalFormLogin onSubmit={handleSubmit(handleRegister)}>
+              <Link to="/login">
                 <S.ModalLogo>
                   <img src="../img/logo_modal.png" alt="logo" />
                 </S.ModalLogo>
               </Link>
               <S.ModalInput
-                type="text"
-                name="login"
+                {...register("email", {
+                  required: "Поле обязательно к заполнению.",
+                  onChange: ((event) => event.target.value)
+                })}
+                type="email"
                 placeholder="Почта"
               />
+              <S.ErrorMessage>
+              {errors?.email && <S.ErrorMessage>{errors?.email?.message}</S.ErrorMessage>}
+                </S.ErrorMessage>
               <S.ModalInput
+              {...register("password", {
+                required: "Поле обязательно к заполнению.",
+                onChange: ((event) => event.target.value)
+              })}
                 type="password"
-                name="password"
                 placeholder="Пароль"
               />
+              {errors?.password && <S.ErrorMessage>{errors?.password?.message}</S.ErrorMessage>}
               <S.ModalInput
+                {...register("repeatPassword", {
+                    required: "Поле обязательно к заполнению.",
+                    onChange: ((event) => event.target.value),
+                    validate: validPassword
+                })}
                 type="password"
-                name="password"
                 placeholder="Повторите пароль"
               />
-              <S.ModalBtnSignupEnt type="button">
-                <Link to="/">Зарегистрироваться</Link>
-              </S.ModalBtnSignupEnt>
+              {errors?.repeatPassword && (
+                  <S.ErrorMessage>{errors?.repeatPassword?.message || "Пароли не совпадают."}</S.ErrorMessage>
+                )}
+              <div>{error && <S.ErrorMessage>{error}</S.ErrorMessage>}</div>
+              <S.ModalImputSignupEnt type="submit" value="Зарегистрироваться" disabled={!isValid} />
             </S.ModalFormLogin>
           </S.ModalBlock>
         </S.ContainerSignup>

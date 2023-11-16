@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import * as S from './login.style';
 
 function Login({ onClick }) {
-
   
     return (
     <S.Wrapper>

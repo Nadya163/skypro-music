@@ -1,5 +1,9 @@
 import { styled } from 'styled-components';
 
+export const ErrorMessage = styled.span`
+color: red;
+`;
+
 export const Wrapper = styled.div`
 width: 100%;
 min-height: 100%;
@@ -24,7 +28,7 @@ opacity: 1;
 
 export const ModalFormLogin = styled.form`
 width: 366px;
-height: 439px;
+/*height: 439px;*/
 background-color: #FFFFFF;
 border-radius: 12px;
 display: -webkit-box;
@@ -47,7 +51,6 @@ padding: 43px 44px 47px 40px;
 export const ModalLogo = styled.div`
 width: 140px;
 height: 21px;
-margin-bottom: 34px;
 background-color: transparent;
 & img {
     width: 140px;
@@ -63,7 +66,7 @@ border-right: none;
 border-bottom: 1px solid #D0CECE;
 padding: 8px 1px;
 margin-right: 3px;
-margin-bottom: 30px;
+margin-top: 30px;
 &::-webkit-input-placeholder {
     font-style: normal;
     font-weight: 400;
@@ -134,4 +137,37 @@ display: flex;
         -ms-flex-pack: center;
             justify-content: center;
   }
+`;
+
+export const ModalImputSignupEnt = styled.input`
+width: 278px;
+height: 62px;
+background-color: #580ea2;
+border-radius: 6px;
+margin-left: 4px;
+border: none;
+margin-top: 60px;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+color: #FFF;
+font-variant-numeric: lining-nums proportional-nums;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 133.333% */
+letter-spacing: -0.054px;
+cursor: pointer;
+&: hover {
+    background-color: #3f007d;
+}
+&:disabled {
+  background-color: #ccc;
+}
+-webkit-box-align: center;
+    -ms-flex-align: center;
+        align-items: center;
+-webkit-box-pack: center;
+    -ms-flex-pack: center;
+        justify-content: center;
 `;

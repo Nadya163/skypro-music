@@ -22,7 +22,7 @@ export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, 
           <S.Main>
           <Nav
             user={user}
-            onAuthButtonClick={user ? handleLogout : () => handleLogin('taradam')}
+            onAuthButtonClick={user ? handleLogout : handleLogin}
           />
           <S.MainCenterblock>
             <Search />
