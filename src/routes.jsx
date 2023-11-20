@@ -8,11 +8,16 @@ import Error from "./pages/error/error";
 
 import ProtectedRoute from "./components/protected-route";
 
-function AppRoutes({ user, onClick, todos, setTodos, isLoading, setIsLoading, currentTodo, handleTodoClick, addTodoError }) {
+function AppRoutes({ user, todos, setTodos, isLoading, setIsLoading, currentTodo, handleTodoClick, addTodoError, handleLogin, handleLogout }) {
   return <Routes>
-            <Route path="/login" element={<Login onClick={onClick}  />} /> 
+            <Route path="/login" element={<Login onClick={handleLogin}  />} /> 
             <Route path="/registration" element={<Registration />} />
+
+            <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
             <Route path="/" element={<Main 
+            user={user}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
             todos={todos} 
             setTodos={setTodos} 
             isLoading={isLoading}
@@ -21,8 +26,6 @@ function AppRoutes({ user, onClick, todos, setTodos, isLoading, setIsLoading, cu
             handleTodoClick={handleTodoClick}
             addTodoError={addTodoError}
              />} /> 
-
-            <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
 
                 <Route path="/myplaylist" element={<MyPlaylist />} /> 
                 <Route path="/category/:id" element={<Category />} />

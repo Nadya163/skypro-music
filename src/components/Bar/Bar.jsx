@@ -145,7 +145,7 @@ function Bar({ currentTodo, formatTime }) {
                         max="100"
                         value={volume}
                         onChange={handleVolumeChange}
-                />
+                /> 
               </S.VolumeProgress>
             </S.VolumeContent>
           </S.BarVolumeBlock>

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './App.style';
 import { GlobalStyles } from './GlobalStyles';
 import AppRoutes from './routes';
 import getTodos from './api';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(localStorage.getItem('login'));
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentTodo, setCurrentTodo] = useState(null);
@@ -16,27 +17,32 @@ function App() {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
+    const storedLogin = localStorage.getItem('login');
+    if (storedLogin) {
+      setUser(true);
+    }
     getTodos()
       .then((todo) => {
         setTodos(todo);
+        setIsLoading(false);
       })
       .catch((error) => {
         setAddTodoError(error.message);
       });
   }, []);
 
-  const handleLogin = () =>  {
+  const handleLogin = () => {
     localStorage.setItem('login', 'SetLogin');
-    const getuser = localStorage.getItem('login');
-    setUser(getuser);
-  }
+    setUser(true);
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('login');
+    setUser(false);
+    navigate('/login');
+  };
 
   return (
     <>
@@ -46,7 +52,10 @@ function App() {
       <AppRoutes user={user}
         onClick={() => {
         handleLogin();
+        handleLogout()
       }}
+      handleLogout={handleLogout}
+        handleLogin={handleLogin}
          todos={todos}
          setTodos={setTodos}
          isLoading={isLoading}

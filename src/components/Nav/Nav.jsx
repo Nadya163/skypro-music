@@ -52,7 +52,7 @@ function Nav() {
           <S.MenuList>
             <MenuItem link="/" text="Главное" />
             <MenuItem link="/myplaylist" text="Мой плейлист" />
-            <MenuItem link="/login" text="Войти" />
+            <MenuItem link="/login" text="Выйти" />
           </S.MenuList>
         </S.NavMenu>
       )}      

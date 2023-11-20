@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 
-// eslint-disable-next-line import/prefer-default-export
 export const GlobalStyles = createGlobalStyle`
 * {
   margin: 0;
@@ -34,8 +33,8 @@ ul li {
 @font-face {
   font-family: "StratosSkyeng";
   src: local("StratosSkyeng"), local("StratosSkyeng"),
-    url("/public/fonts/StratosSkyeng.woff2") format("woff2"),
-    url("/public/fonts/StratosSkyeng.woff") format("woff");
+    url("/fonts/StratosSkyeng.woff2") format("woff2"),
+    url("/fonts/StratosSkyeng.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }

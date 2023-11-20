@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import * as S from './Playlist.style'
+import trackArray from '../TrackArray';
 
 function Loading() {
   return (
@@ -42,8 +43,8 @@ function Playlist({ todos, handleTodoClick, isLoading, setIsLoading, formatTime 
     <S.ContentPlaylist>
       <S.PlaylistItem>
         {isLoading ? (
-          <>
-            {todos.map((todo) => (
+            <>
+            {trackArray.map((todo) => (
               <Loading 
                 key={todo.id}
                 setIsLoading={setIsLoading}

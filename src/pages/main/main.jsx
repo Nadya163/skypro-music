@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import * as S from '../../App.style';
 import Nav from '../../components/Nav/Nav';
 import Search from '../../components/Search/Search';
@@ -9,12 +8,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Bar from '../../components/Bar/Bar';
 
 
-export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError }) {
-  const [user, setUser] = useState(null);
-
-  const handleLogin = () => setUser({ login: "taradam" });
-
-  const handleLogout = () => setUser(null);
+export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError, user, handleLogin, handleLogout }) {
 
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
@@ -28,7 +22,7 @@ export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, 
           <S.Main>
           <Nav
             user={user}
-            onAuthButtonClick={user ? handleLogout : handleLogin}
+            onAuthButtonClick={user ? handleLogout : () => handleLogin('taradam')}
           />
           <S.MainCenterblock>
             <Search />
