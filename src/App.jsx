@@ -27,11 +27,6 @@ function App() {
       });
   }, []);
 
-  // const handleLogin = () => {
-  //   localStorage.setItem('login', 'SetLogin');
-  //   setUser(true);
-  // };
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
