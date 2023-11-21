@@ -12,36 +12,39 @@ export default async function getTodos() {
 };
 
 export async function SignupTodos({ email, password }) {
-   try { const response = await fetch(`${baseHost}/user/signup/`, { 
-    method: "POST",
-     body: JSON.stringify({
-       email, password, username: email 
+  try { 
+    const response = await fetch(`${baseHost}/user/signup/`, { 
+      method: "POST",
+      body: JSON.stringify({
+        email, password, username: email 
       }),
-       headers: { "content-type": "application/json",
-       },
-   });
+      headers: { 
+        "content-type": "application/json",
+      },
+    });
 
     if (response.status === 400) { 
       const errorResponse = await response.json(); 
       if (errorResponse.username) { 
         throw new Error(errorResponse.username);
-       } 
-       if (errorResponse.email) {
-         throw new Error(errorResponse.email); 
-        } 
-        if (errorResponse.password) {
-           throw new Error(errorResponse.password);
-           } } 
-           if (response.status === 500) { 
-            throw new Error("Сервер сломался");
-           }
+      } 
+      if (errorResponse.email) {
+        throw new Error(errorResponse.email); 
+      } 
+      if (errorResponse.password) {
+        throw new Error(errorResponse.password);
+      } 
+    } 
+    if (response.status === 500) { 
+      throw new Error("Сервер сломался");
+    }
 
-        return response.json(); 
-      } catch (error) {
-         console.error(error); 
-}
- }; 
-
+    return response.json(); 
+  } catch (error) {
+    console.error(error); 
+    throw error;
+  }
+};
 // export async function SignupTodos({ email, password }) {
 // return await fetch(`${baseHost}/user/signup/`, {
 // method: "POST",

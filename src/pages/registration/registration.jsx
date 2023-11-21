@@ -6,7 +6,7 @@ import { SignupTodos } from '../../api';
 
 
 function Register() { 
-  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const user = localStorage.getItem('user');
   console.log(JSON.parse(user));
   const navigate = useNavigate();
@@ -26,13 +26,10 @@ function Register() {
       await SignupTodos(data);
       localStorage.setItem('user', JSON.stringify(data)); 
       reset();
-      if (!errors) {
-        navigate("/");
-      }
+      navigate("/");
     } catch (error) {
-      setError(error);
+      setErrorMessage(error.message);
       console.log("Произошла ошибка:", error);
-    
     }
   };
 
@@ -87,7 +84,7 @@ function Register() {
               {errors?.repeatPassword && (
                   <S.ErrorMessage>{errors?.repeatPassword?.message || "Пароли не совпадают."}</S.ErrorMessage>
                 )}
-              <div>{error && <S.ErrorMessage>{error}</S.ErrorMessage>}</div>
+              <div>{errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}</div>
               <S.ModalImputSignupEnt type="submit" value="Зарегистрироваться" disabled={!isValid} />
             </S.ModalFormLogin>
           </S.ModalBlock>
