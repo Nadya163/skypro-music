@@ -70,6 +70,3 @@ function Login() {
 }
 
 export default Login;
-
-// {email: 'test12345@mail.ru', password: 'asdasdasd1a', repeatPassword: 'asdasdasd1a'}
-// {email: 'test12345@mail.ru', password: 'asdasdasd1a'}

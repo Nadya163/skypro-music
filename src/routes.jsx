@@ -9,29 +9,30 @@ import Error from "./pages/error/error";
 import ProtectedRoute from "./components/protected-route";
 
 function AppRoutes({ user, todos, setTodos, isLoading, setIsLoading, currentTodo, handleTodoClick, addTodoError, handleLogin, handleLogout }) {
-  return <Routes>
-            <Route path="/login" element={<Login onClick={handleLogin}  />} /> 
-            <Route path="/registration" element={<Registration user={user} />} />
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} /> 
+      <Route path="/registration" element={<Registration user={user} />} />
 
-            <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-            <Route path="/" element={<Main 
-            user={user}
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-            todos={todos} 
-            setTodos={setTodos} 
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-            currentTodo={currentTodo}
-            handleTodoClick={handleTodoClick}
-            addTodoError={addTodoError}
-             />} /> 
-
-                <Route path="/myplaylist" element={<MyPlaylist />} /> 
-                <Route path="/category/:id" element={<Category />} />
-                <Route path="*" element={<Error />} /> 
-            </Route>
-        </Routes>
-};
+      <Route element={<ProtectedRoute user={user} />}>
+        <Route path="/" element={<Main 
+          user={user}
+          handleLogin={handleLogin}
+          handleLogout={handleLogout}
+          todos={todos} 
+          setTodos={setTodos} 
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          currentTodo={currentTodo}
+          handleTodoClick={handleTodoClick}
+          addTodoError={addTodoError}
+        />} /> 
+        <Route path="/myplaylist" element={<MyPlaylist />} /> 
+        <Route path="/category/:id" element={<Category />} />
+        <Route path="*" element={<Error />} /> 
+      </Route>
+    </Routes>
+  );
+}
 
 export default AppRoutes;

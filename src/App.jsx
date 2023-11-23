@@ -4,6 +4,7 @@ import * as S from './App.style';
 import { GlobalStyles } from './GlobalStyles';
 import AppRoutes from './routes';
 import getTodos from './api';
+import UserContext from './context'
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('user') || null) 
@@ -31,35 +32,37 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    localStorage.removeItem('/');
     navigate('/login');
   };
 
-  return (
-    <>
+return (
+  <>
     <GlobalStyles />
     <S.Wrapper>
       <S.Container>
-      <AppRoutes user={user}
-        onClick={() => {
-        // handleLogin();
-        handleLogout()
-      }}
-      handleLogout={handleLogout}
-        // handleLogin={handleLogin}
-         todos={todos}
-         setTodos={setTodos}
-         setUser={setUser} 
-         isLoading={isLoading}
-         setIsLoading={setIsLoading}
-         currentTodo={currentTodo}
-         handleTodoClick={handleTodoClick}
-         addTodoError={addTodoError}
-         />
+        <div>
+          <UserContext.Provider value={{ user, handleLogout }}>
+            <AppRoutes
+              user={user}
+              onClick={() => {
+                handleLogout();
+              }}
+              handleLogout={handleLogout}
+              todos={todos}
+              setTodos={setTodos}
+              setUser={setUser}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              currentTodo={currentTodo}
+              handleTodoClick={handleTodoClick}
+              addTodoError={addTodoError}
+            />
+          </UserContext.Provider>
+        </div>
       </S.Container>
     </S.Wrapper>
-    </>
-  )
+  </>
+);
 }
 
 export default App;
