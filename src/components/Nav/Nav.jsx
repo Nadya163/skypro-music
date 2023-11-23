@@ -10,17 +10,17 @@ function Logo() {
     );
 }
 
-function MenuItem({ link, text, handleLogout }) {
+function MenuItem({ link, text  }) {
     return (
     <S.MenuItem>
-    <S.MenuLink as={Link} to={link} onClick={handleLogout}>
+    <S.MenuLink as={Link} to={link}>
       {text}
     </S.MenuLink>
   </S.MenuItem>
     );
 }
 
-function Nav() {
+function Nav({ handleLogout }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -52,7 +52,7 @@ function Nav() {
           <S.MenuList>
             <MenuItem link="/" text="Главное" />
             <MenuItem link="/myplaylist" text="Мой плейлист" />
-            <MenuItem link="/login" text="Выйти" />
+            <MenuItem link="/login" text="Выйти" onClick={handleLogout} />
           </S.MenuList>
         </S.NavMenu>
       )}      
