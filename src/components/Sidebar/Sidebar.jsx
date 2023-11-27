@@ -33,8 +33,8 @@ function Loading() {
 }
 
 function Sidebar({ isLoading }) {
-const username = useContext(UserContext);
-console.log(username);
+const {userData} = useContext(UserContext);
+console.log(userData.email);
 
     return (
       <S.MainSidebar>
@@ -42,7 +42,7 @@ console.log(username);
           <LoadingPersonal />
         ) : (
           <S.SidebarPersonal>
-          <S.SidebarPersonalName>{username}</S.SidebarPersonalName>
+          <S.SidebarPersonalName>{userData}</S.SidebarPersonalName>
           <S.SidebarIcon>
             <svg alt="logout">
               <use xlinkHref="img/icon/sprite.svg#logout" />

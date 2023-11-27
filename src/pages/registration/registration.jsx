@@ -1,15 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './registration.style';
 import { SignupTodos } from '../../api';
+import UserContext from '../../context';
 
 
 function Register() { 
   const [errorMessage, setErrorMessage] = useState(null);
-  const user = localStorage.getItem('user');
-  console.log(JSON.parse(user));
   const navigate = useNavigate();
+  const {changingUserData} = useContext(UserContext);
 
   const {
     register,
@@ -21,10 +21,11 @@ function Register() {
     mode: "onBlur"
   });
 
-  const handleRegister = async (data) => {
+    const handleRegister = async (data) => {
     try {
       await SignupTodos(data);
-      localStorage.setItem('user', JSON.stringify(data)); 
+      localStorage.setItem('user', JSON.stringify(data));
+      changingUserData(localStorage.getItem('user'));
       reset();
       navigate("/");
     } catch (error) {

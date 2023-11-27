@@ -3,10 +3,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './login.style'
 import { LoginTodos } from '../../api';
+import { useContext } from 'react';
+import UserContext from '../../context';
 
 
 function Login() {
   const [errorMessage, setErrorMessage] = useState(null);
+  const {changingUserData} = useContext(UserContext);
+
   const {
     register,
     formState: {errors, isValid},
@@ -20,14 +24,18 @@ function Login() {
   const handleLogin = async (data) => {
     try {
       await LoginTodos(data);
-        localStorage.setItem('user', JSON.stringify(data)); 
+      localStorage.setItem('user', JSON.stringify(data)); 
+      changingUserData(JSON.parse(localStorage.getItem('user')));
         reset();
         navigate("/");
     } catch (error) {
       setErrorMessage(error.message);
       console.log("Произошла ошибка:", error);
     }
+    console.log(data);
   };
+  
+  console.log(changingUserData(localStorage.getItem('user')));
   
     return (
     <S.Wrapper>

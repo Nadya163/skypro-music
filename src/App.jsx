@@ -7,7 +7,7 @@ import getTodos from './api';
 import UserContext from './context'
 
 function App() {
-  const [user, setUser] = useState(localStorage.getItem('user') || null) 
+  const [user, setUser] = useState(localStorage.getItem('user'));
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentTodo, setCurrentTodo] = useState(null);
@@ -28,20 +28,18 @@ function App() {
       });
   }, []);
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     navigate('/login');
   };
-
 return (
   <>
+  <UserContext.Provider value={{ userData: user, changingUserData: setUser }}>
     <GlobalStyles />
     <S.Wrapper>
       <S.Container>
-        <div>
-          <UserContext.Provider value={{ user, handleLogout }}>
             <AppRoutes
               user={user}
               onClick={() => {
@@ -57,10 +55,9 @@ return (
               handleTodoClick={handleTodoClick}
               addTodoError={addTodoError}
             />
-          </UserContext.Provider>
-        </div>
-      </S.Container>
-    </S.Wrapper>
+        </S.Container>
+      </S.Wrapper>
+  </UserContext.Provider>
   </>
 );
 }

@@ -14,7 +14,9 @@ export async function SignupTodos({ email, password }) {
     const response = await fetch('https://skypro-music-api.skyeng.tech/user/signup/', { 
       method: "POST",
       body: JSON.stringify({
-        email, password, username: email 
+        email,
+        password,
+        username: email 
       }),
       headers: { 
         "content-type": "application/json",
