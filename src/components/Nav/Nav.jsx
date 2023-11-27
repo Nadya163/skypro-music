@@ -32,6 +32,8 @@ function Nav({ handleLogout }) {
           setIsOpen(!isOpen);
         }
       };
+
+  console.log(handleLogout);
   
   return (
     <S.MainNav>
@@ -52,7 +54,12 @@ function Nav({ handleLogout }) {
           <S.MenuList>
             <MenuItem link="/" text="Главное" />
             <MenuItem link="/myplaylist" text="Мой плейлист" />
-            <MenuItem link="/login" text="Выйти" onClick={handleLogout} />
+            <S.MenuItem>
+            <S.MenuLink as={Link} to="/login" type='button' onClick={handleLogout} >
+              Выйти
+            </S.MenuLink>
+          </S.MenuItem>
+            {/* <MenuItem link="/registration" text="Выйти" onClick={handleLogout} /> */}
           </S.MenuList>
         </S.NavMenu>
       )}      

@@ -7,7 +7,7 @@ import getTodos from './api';
 import UserContext from './context'
 
 function App() {
-  const [user, setUser] = useState(localStorage.getItem('user'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentTodo, setCurrentTodo] = useState(null);
@@ -28,12 +28,15 @@ function App() {
       });
   }, []);
 
+  console.log(user);
+
     const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     navigate('/login');
   };
+
 return (
   <>
   <UserContext.Provider value={{ userData: user, changingUserData: setUser }}>

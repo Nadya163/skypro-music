@@ -9,14 +9,14 @@ export default async function getTodos() {
     return data;
 };
 
-export async function SignupTodos({ email, password }) {
+export async function SignupTodos({ email, password, username }) {
   try { 
     const response = await fetch('https://skypro-music-api.skyeng.tech/user/signup/', { 
       method: "POST",
       body: JSON.stringify({
         email,
         password,
-        username: email 
+        username
       }),
       headers: { 
         "content-type": "application/json",

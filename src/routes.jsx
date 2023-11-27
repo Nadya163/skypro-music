@@ -13,7 +13,6 @@ function AppRoutes({ user, todos, setTodos, isLoading, setIsLoading, currentTodo
     <Routes>
       <Route path="/login" element={<Login />} /> 
       <Route path="/registration" element={<Registration user={user} />} />
-
       <Route element={<ProtectedRoute user={user} />}>
         <Route path="/" element={<Main 
           user={user}

@@ -8,7 +8,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Bar from '../../components/Bar/Bar';
 
 
-export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError, user, handleLogout }) {
+export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError, handleLogout }) {
 
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
@@ -22,7 +22,6 @@ export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, 
       <>
           <S.Main>
           <Nav
-            user={user}
             handleLogout={handleLogout}
           />
           <S.MainCenterblock>
@@ -42,7 +41,9 @@ export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, 
               />
             </S.CenterblockContent>
           </S.MainCenterblock>
-          <Sidebar isLoading={isLoading} setIsLoading={setIsLoading} user={user} handleTodoClick={handleTodoClick} />
+          <Sidebar 
+          isLoading={isLoading}
+           handleLogout={handleLogout} />
           {currentTodo ? (<Bar currentTodo={currentTodo} formatTime={formatTime} />) : null}
         </S.Main>
         <footer className="footer" />

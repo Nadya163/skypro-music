@@ -23,11 +23,13 @@ function Register() {
 
     const handleRegister = async (data) => {
     try {
+      console.log(data);
       await SignupTodos(data);
-      localStorage.setItem('user', JSON.stringify(data));
-      changingUserData(localStorage.getItem('user'));
-      reset();
-      navigate("/");
+      localStorage.setItem('user', JSON.stringify(data)); 
+      console.log("Данные после сохранения в localStorage:", JSON.parse(localStorage.getItem('user')));
+      changingUserData(JSON.parse(localStorage.getItem('user')));
+        reset();
+        navigate("/");
     } catch (error) {
       setErrorMessage(error.message);
       console.log("Произошла ошибка:", error);
@@ -53,6 +55,14 @@ function Register() {
                   <img src="../img/logo_modal.png" alt="logo" />
                 </S.ModalLogo>
               </Link>
+              <S.ModalInput
+                {...register("username", {
+                  required: "Поле обязательно к заполнению.",
+                  onChange: ((event) => event.target.value)
+                })}
+                type="text"
+                placeholder="Никнейм"
+              />
               <S.ModalInput
                 {...register("email", {
                   required: "Поле обязательно к заполнению.",

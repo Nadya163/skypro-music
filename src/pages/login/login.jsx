@@ -27,18 +27,13 @@ function Login() {
       await LoginTodos(data);
       localStorage.setItem('user', JSON.stringify(data)); 
       console.log("Данные после сохранения в localStorage:", JSON.parse(localStorage.getItem('user')));
-      const user = JSON.parse(localStorage.getItem('user'));
-        await changingUserData(user);
-        console.log(user);
-      // await changingUserData(localStorage.getItem('user'));
-      // console.log(changingUserData(localStorage.getItem('user')));
+      changingUserData(JSON.parse(localStorage.getItem('user')));
         reset();
         navigate("/");
     } catch (error) {
       setErrorMessage(error.message);
       console.log("Произошла ошибка:", error);
     }
-    // console.log(data);
   };
   
     return (
