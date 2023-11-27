@@ -23,19 +23,20 @@ function Login() {
 
   const handleLogin = async (data) => {
     try {
+      console.log(data);
       await LoginTodos(data);
       localStorage.setItem('user', JSON.stringify(data)); 
-      changingUserData(JSON.parse(localStorage.getItem('user')));
+      console.log("Данные после сохранения в localStorage:", JSON.parse(localStorage.getItem('user')));
+      changingUserData(localStorage.getItem('user'));
+      console.log(changingUserData("Провера юзера:", localStorage.getItem('user')));
         reset();
         navigate("/");
     } catch (error) {
       setErrorMessage(error.message);
       console.log("Произошла ошибка:", error);
     }
-    console.log(data);
+    // console.log(data);
   };
-  
-  console.log(changingUserData(localStorage.getItem('user')));
   
     return (
     <S.Wrapper>

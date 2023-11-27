@@ -34,7 +34,7 @@ function Loading() {
 
 function Sidebar({ isLoading }) {
 const {userData} = useContext(UserContext);
-console.log(userData.email);
+// console.log(userData.email);
 
     return (
       <S.MainSidebar>
