@@ -27,8 +27,11 @@ function Login() {
       await LoginTodos(data);
       localStorage.setItem('user', JSON.stringify(data)); 
       console.log("Данные после сохранения в localStorage:", JSON.parse(localStorage.getItem('user')));
-      changingUserData(localStorage.getItem('user'));
-      console.log(changingUserData("Провера юзера:", localStorage.getItem('user')));
+      const user = JSON.parse(localStorage.getItem('user'));
+        await changingUserData(user);
+        console.log(user);
+      // await changingUserData(localStorage.getItem('user'));
+      // console.log(changingUserData(localStorage.getItem('user')));
         reset();
         navigate("/");
     } catch (error) {
