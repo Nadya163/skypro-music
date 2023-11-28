@@ -29,8 +29,8 @@ function App() {
   }, []);
 
   console.log(user);
-
-    const navigate = useNavigate();
+  
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('user');
