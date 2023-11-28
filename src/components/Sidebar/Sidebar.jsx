@@ -1,21 +1,8 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 import * as S from './Sidebar.style';
 import sidebarArray from "../SidebarArray";
-
-
-
-function Personal({ text }) {
-    return (
-        <S.SidebarPersonal>
-        <S.SidebarPersonalName>{text}</S.SidebarPersonalName>
-        <S.SidebarIcon>
-          <svg alt="logout">
-            <use xlinkHref="img/icon/sprite.svg#logout" />
-          </svg>
-        </S.SidebarIcon>
-      </S.SidebarPersonal>
-    )
-}
+import UserContext from "../../context";
 
 function LoadingPersonal() {
   return (
@@ -45,14 +32,23 @@ function Loading() {
 )
 }
 
-function Sidebar({ isLoading }) {
+function Sidebar({ isLoading, handleLogout }) {
+const {userData} = useContext(UserContext);
+console.log(userData.username);
 
     return (
       <S.MainSidebar>
         {isLoading ? (
           <LoadingPersonal />
         ) : (
-          <Personal text="Sergey.Ivanov" />
+          <S.SidebarPersonal>
+          <S.SidebarPersonalName>{userData.username}</S.SidebarPersonalName>
+          <S.SidebarIcon>
+            <svg alt="logout" onClick={handleLogout}>
+              <use xlinkHref="img/icon/sprite.svg#logout" />
+            </svg>
+          </S.SidebarIcon>
+        </S.SidebarPersonal>
         )}
             <S.SidebarBlock>
               <S.SidebarList>

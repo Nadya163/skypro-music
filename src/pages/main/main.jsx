@@ -8,21 +8,21 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Bar from '../../components/Bar/Bar';
 
 
-export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError, user, handleLogin, handleLogout }) {
+export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, currentTodo, addTodoError, handleLogout }) {
 
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds.toFixed()}`;
   };
+  // console.log(user);
 
   console.log(addTodoError);
     return (
       <>
           <S.Main>
           <Nav
-            user={user}
-            onAuthButtonClick={user ? handleLogout : () => handleLogin('taradam')}
+            handleLogout={handleLogout}
           />
           <S.MainCenterblock>
             <Search />
@@ -41,7 +41,9 @@ export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, 
               />
             </S.CenterblockContent>
           </S.MainCenterblock>
-          <Sidebar isLoading={isLoading} setIsLoading={setIsLoading} />
+          <Sidebar 
+          isLoading={isLoading}
+           handleLogout={handleLogout} />
           {currentTodo ? (<Bar currentTodo={currentTodo} formatTime={formatTime} />) : null}
         </S.Main>
         <footer className="footer" />

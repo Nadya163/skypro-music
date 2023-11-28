@@ -24,7 +24,6 @@ export const ModalBlock = styled.div`
 
 export const ModalFormLogin = styled.form`
     width: 366px;
-    height: 439px;
     background-color: #ffffff;
     border-radius: 12px;
     display: -webkit-box;
@@ -99,58 +98,38 @@ export const ModalInput = styled.input`
     }
 `;
 
-export const ModalBtnEnter = styled.button`
-    width: 278px;
-    height: 52px;
-    background-color: #580ea2;
-    border-radius: 6px;
-    margin-top: 60px;
-    margin-bottom: 20px;
-    border: none;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
+export const ModalInputEnter = styled.input`
+width: 278px;
+height: 52px;
+background-color: #580ea2;
+border-radius: 6px;
+margin-left: 4px;
+border: none;
+margin-top: 60px;
+margin-bottom: 20px;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+color: #FFF;
+font-variant-numeric: lining-nums proportional-nums;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 133.333% */
+letter-spacing: -0.054px;
+cursor: pointer;
+&: hover {
+    background-color: #3f007d;
+}
+&:disabled {
+  background-color: #ccc;
+}
+-webkit-box-align: center;
     -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
+        align-items: center;
+-webkit-box-pack: center;
     -ms-flex-pack: center;
-    justify-content: center;
-    color: #FFF;
-    font-variant-numeric: lining-nums proportional-nums;
-    font-family: StratosSkyeng;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: -0.054px;
-    & a {
-      width: 100%;
-      height: 100%;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 24px;
-      letter-spacing: -0.05px;
-      color: #ffffff;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      justify-content: center;
-    }
-
-    &:hover {
-      background-color: #3f007d;
-    }
-
-    &:active {
-      background-color: #271a58;
-    }
+        justify-content: center;
 `;
 
 export const ModalLinkEnter = styled.a`
@@ -212,4 +191,8 @@ export const ModalBtnSignup = styled.button`
     &:active {
       background-color: #d9d9d9;
     }
+`;
+
+export const ErrorMessage = styled.span`
+color: red;
 `;

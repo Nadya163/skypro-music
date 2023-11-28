@@ -10,7 +10,7 @@ function Logo() {
     );
 }
 
-function MenuItem({ link, text }) {
+function MenuItem({ link, text  }) {
     return (
     <S.MenuItem>
     <S.MenuLink as={Link} to={link}>
@@ -20,7 +20,7 @@ function MenuItem({ link, text }) {
     );
 }
 
-function Nav() {
+function Nav({ handleLogout }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -32,6 +32,8 @@ function Nav() {
           setIsOpen(!isOpen);
         }
       };
+
+  console.log(handleLogout);
   
   return (
     <S.MainNav>
@@ -52,7 +54,12 @@ function Nav() {
           <S.MenuList>
             <MenuItem link="/" text="Главное" />
             <MenuItem link="/myplaylist" text="Мой плейлист" />
-            <MenuItem link="/login" text="Выйти" />
+            <S.MenuItem>
+            <S.MenuLink as={Link} to="/login" type='button' onClick={handleLogout} >
+              Выйти
+            </S.MenuLink>
+          </S.MenuItem>
+            {/* <MenuItem link="/registration" text="Выйти" onClick={handleLogout} /> */}
           </S.MenuList>
         </S.NavMenu>
       )}      

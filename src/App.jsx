@@ -4,9 +4,10 @@ import * as S from './App.style';
 import { GlobalStyles } from './GlobalStyles';
 import AppRoutes from './routes';
 import getTodos from './api';
+import UserContext from './context'
 
 function App() {
-  const [user, setUser] = useState(localStorage.getItem('login'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentTodo, setCurrentTodo] = useState(null);
@@ -17,57 +18,51 @@ function App() {
   }
 
   useEffect(() => {
-    const storedLogin = localStorage.getItem('login');
-    if (storedLogin) {
-      setUser(true);
-    }
     getTodos()
       .then((todo) => {
         setTodos(todo);
         setIsLoading(false);
       })
       .catch((error) => {
-        setAddTodoError(error.message);
+        setAddTodoError(error.message); 
       });
   }, []);
 
-  const handleLogin = () => {
-    localStorage.setItem('login', 'SetLogin');
-    setUser(true);
-  };
-
+  console.log(user);
+  
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('login');
-    setUser(false);
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
-  return (
-    <>
+return (
+  <>
+  <UserContext.Provider value={{ userData: user, changingUserData: setUser }}>
     <GlobalStyles />
     <S.Wrapper>
       <S.Container>
-      <AppRoutes user={user}
-        onClick={() => {
-        handleLogin();
-        handleLogout()
-      }}
-      handleLogout={handleLogout}
-        handleLogin={handleLogin}
-         todos={todos}
-         setTodos={setTodos}
-         isLoading={isLoading}
-         setIsLoading={setIsLoading}
-         currentTodo={currentTodo}
-         handleTodoClick={handleTodoClick}
-         addTodoError={addTodoError}
-         />
-      </S.Container>
-    </S.Wrapper>
-    </>
-  )
+            <AppRoutes
+              user={user}
+              onClick={() => {
+                handleLogout();
+              }}
+              handleLogout={handleLogout}
+              todos={todos}
+              setTodos={setTodos}
+              setUser={setUser}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              currentTodo={currentTodo}
+              handleTodoClick={handleTodoClick}
+              addTodoError={addTodoError}
+            />
+        </S.Container>
+      </S.Wrapper>
+  </UserContext.Provider>
+  </>
+);
 }
 
 export default App;
