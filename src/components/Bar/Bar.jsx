@@ -1,5 +1,7 @@
 import { useState,  useRef, useEffect } from 'react';
 import * as S from './Bar.style'
+import { useDispatch, useSelector } from 'react-redux';
+import { playNextTrack, playPreviousTrack, setCurrentTrack } from '../../store/redux/playerSlice';
 
 function Bar({ currentTodo, formatTime }) {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -8,7 +10,17 @@ function Bar({ currentTodo, formatTime }) {
   const [duration, setDuration] = useState(0);
   const [isLoop, setIsLoop] = useState(false);
   const audioRef = useRef(null);
+  const dispatch = useDispatch();
+  const CurrentTrack = useSelector(setCurrentTrack);
   
+  const handleNextClick = () => {
+    dispatch(playNextTrack());
+  };
+
+  const handleBackClick = () => {
+    dispatch(playPreviousTrack);
+  };
+    
   console.log(currentTodo);
 
    const handleStart = () => {
@@ -71,7 +83,7 @@ function Bar({ currentTodo, formatTime }) {
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayerControls>
-                <S.PlayerBtnPrev>
+                <S.PlayerBtnPrev type='button' onClick={handleBackClick}>
                   <S.PlayerBtnPrevSvg alt="prev">
                     <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
@@ -82,7 +94,7 @@ function Bar({ currentTodo, formatTime }) {
                   (<use xlinkHref="img/icon/sprite.svg#icon-pause" />) : (<use xlinkHref="img/icon/sprite.svg#icon-play" />)}
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
-                <S.PlayerBtnNext>
+                <S.PlayerBtnNext  type='button' onClick={handleNextClick} disabled={CurrentTrack === CurrentTrack.length - 1}>
                   <S.PlayerBtnNextSvg alt="next">
                     <use xlinkHref="img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
