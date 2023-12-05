@@ -14,7 +14,7 @@ function Bar({ formatTime }) {
   const dispatch = useDispatch();
   const audioRef = useRef(null);
 
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(100);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -63,16 +63,21 @@ function Bar({ formatTime }) {
       audioRef.current?.addEventListener('timeupdate', () => {
         setCurrentTime(audioRef.current?.currentTime);
       });
+      audioRef.current?.addEventListener('ended', () => { 
+        dispatch(playNextTrack()); 
+      });
       return () => {
         audioRef.current?.removeEventListener('loadedmetadata', () => {
           setDuration(audioRef.current?.duration);
         });
         audioRef.current?.removeEventListener('timeupdate', () => {
           setCurrentTime(audioRef.current?.currentTime);
-        })
+        });
+        audioRef.current?.removeEventListener('ended', () => { 
+          dispatch(playNextTrack());
+        });
       }
     };
-
   }, [currentTrack.track_file]);
 
   return (
