@@ -98,7 +98,7 @@ export const ModalInput = styled.input`
     }
 `;
 
-export const ModalInputEnter = styled.input`
+export const ModalInputEnter = styled.button`
 width: 278px;
 height: 52px;
 background-color: #580ea2;

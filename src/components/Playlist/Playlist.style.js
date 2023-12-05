@@ -57,14 +57,14 @@ export const TrackTitleImage = styled.div`
     margin-right: 17px;
 `;
 
-export const TratrackTitleSvg = styled.svg`
+export const TrackTitleSvg = styled.svg`
     width: 18px;
     height: 17px;
     fill: transparent;
     stroke: #4e4e4e;
 `;
 
-export const TratrackTitleSvgLoading = styled.svg`
+export const TrackTitleSvgLoading = styled.svg`
     width: 18px;
     height: 17px;
     fill: transparent;
@@ -210,3 +210,37 @@ export const PlaylistItem = styled.div`
   display: block;
   margin-bottom: 12px;
 `;
+
+export const animation = keyframes`{
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0.2;
+    }
+  }`;
+  
+  const animationPointPulse = () => css`
+    animation: pulse 0.6s ease-in-out infinite both;
+  
+    @keyframes pulse {
+      0%,
+      to {
+        transform: scale(0.5);
+      }
+      50% {
+        transform: scale(1);
+      }
+    }
+  `;
+    export const PointPlaying = styled.div`
+    position: relative; 
+    text-align: center;
+    padding: 8px;
+    width: 16px;
+    height: 16px;
+    background-color: #b672ff;
+    border-radius: 50%;
+    ${(props) => (props.$playing ? animationPointPulse : "")};
+  `;
