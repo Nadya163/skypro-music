@@ -52,7 +52,7 @@ return (
               user={user}
               onClick={() => {
                 handleLogout();
-              }}
+              }} 
               handleLogout={handleLogout}
               todos={todos}
               setTodos={setTodos}
