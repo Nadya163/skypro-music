@@ -39,11 +39,13 @@ const playerSlice = createSlice({
     },
     playPreviousTrack: state => {
       if (state.isShaffling) {
-        console.log(state.isShaffling);
+        if (state.playedTacks.length === 0) {
+        return;
+        }
         state.currentTrack = state.playedTacks.pop();
         console.log(state.playedTacks);
         return;
-      }
+        }
 
       const currentIndex = state.trackList.findIndex(track => track.id === state.currentTrack.id);
       if (currentIndex === -1 || currentIndex === 0) {
