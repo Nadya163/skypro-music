@@ -40,7 +40,7 @@ const playerSlice = createSlice({
     playPreviousTrack: state => {
       if (state.isShaffling) {
         if (state.playedTacks.length === 0) {
-        return;
+        return;  
         }
         state.currentTrack = state.playedTacks.pop();
         console.log(state.playedTacks);
