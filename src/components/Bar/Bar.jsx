@@ -1,24 +1,50 @@
 import { useState,  useRef, useEffect } from 'react';
 import * as S from './Bar.style'
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  playNextTrack,
+  playPreviousTrack,
+  selectorCurrentTrack,
+  selectorCurrentTrackIndex,
+  selectorIsShaffling,
+  selectorTrackList, setPulsatingPoint, toggleIsShaffling
+} from '../../store/redux/playerSlice';
 
-function Bar({ currentTodo, formatTime }) {
-  const [isPlaying, setIsPlaying] = useState(true);
+function Bar({ formatTime }) {
+  const dispatch = useDispatch();
+  const audioRef = useRef(null);
+
+  const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(100);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isLoop, setIsLoop] = useState(false);
-  const audioRef = useRef(null);
-  
-  console.log(currentTodo);
 
-   const handleStart = () => {
-    audioRef.current.play();
+  const trackList = useSelector(selectorTrackList);
+  const currentTrack = useSelector(selectorCurrentTrack);
+  const currentTrackIndex = useSelector(selectorCurrentTrackIndex);
+  const isSuffle = useSelector(selectorIsShaffling);
+
+  const handleNextClick = () => {
+    dispatch(playNextTrack());
+  };
+
+  const handleBackClick = () => {
+    dispatch(playPreviousTrack());
+  };
+
+  // console.log(currentTrack);
+
+  const handleStart = () => {
+    audioRef.current?.play();
     setIsPlaying(true);
+    dispatch(setPulsatingPoint(true))
   };
 
   const handleStop = () => {
-    audioRef.current.pause();
+    audioRef.current?.pause();
     setIsPlaying(false);
+    dispatch(setPulsatingPoint(false))
   };
 
   const handleVolumeChange = (event) => {
@@ -31,27 +57,32 @@ function Bar({ currentTodo, formatTime }) {
   useEffect(() => {
     handleStart();
     if (!currentTime) {
-      audioRef.current.addEventListener('loadedmetadata', () => {
-        setDuration(audioRef.current.duration);
+      audioRef.current?.addEventListener('loadedmetadata', () => {
+        setDuration(audioRef.current?.duration);
       });
-      audioRef.current.addEventListener('timeupdate', () => {
-        setCurrentTime(audioRef.current.currentTime);
+      audioRef.current?.addEventListener('timeupdate', () => {
+        setCurrentTime(audioRef.current?.currentTime);
+      });
+      audioRef.current?.addEventListener('ended', () => { 
+        dispatch(playNextTrack()); 
       });
       return () => {
-        audioRef.current.removeEventListener('loadedmetadata', () => {
-          setDuration(audioRef.current.duration);
+        audioRef.current?.removeEventListener('loadedmetadata', () => {
+          setDuration(audioRef.current?.duration);
         });
-        audioRef.current.removeEventListener('timeupdate', () => {
-          setCurrentTime(audioRef.current.currentTime);
-        })
+        audioRef.current?.removeEventListener('timeupdate', () => {
+          setCurrentTime(audioRef.current?.currentTime);
+        });
+        audioRef.current?.removeEventListener('ended', () => { 
+          dispatch(playNextTrack());
+        });
       }
     };
-
-  }, [currentTodo.track_file]);
+  }, [currentTrack.track_file]);
 
   return (
     <>
-    <S.Audio controls ref={audioRef} loop={isLoop} src={currentTodo.track_file} />
+    <S.Audio controls ref={audioRef} loop={isLoop} src={currentTrack.track_file} />
     <S.Bar>
       <S.BarContent>
         <S.TimeTrack>{formatTime(currentTime)} / {formatTime(duration)}</S.TimeTrack>
@@ -71,7 +102,7 @@ function Bar({ currentTodo, formatTime }) {
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayerControls>
-                <S.PlayerBtnPrev>
+                <S.PlayerBtnPrev type='button' onClick={handleBackClick}>
                   <S.PlayerBtnPrevSvg alt="prev">
                     <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
@@ -82,7 +113,7 @@ function Bar({ currentTodo, formatTime }) {
                   (<use xlinkHref="img/icon/sprite.svg#icon-pause" />) : (<use xlinkHref="img/icon/sprite.svg#icon-play" />)}
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
-                <S.PlayerBtnNext>
+                <S.PlayerBtnNext  type='button' onClick={handleNextClick} disabled={currentTrackIndex === trackList.length - 1}>
                   <S.PlayerBtnNextSvg alt="next">
                     <use xlinkHref="img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
@@ -94,9 +125,11 @@ function Bar({ currentTodo, formatTime }) {
                     </S.PlayerBtnRepeatSvg>
                 </S.PlayerBtnRepeat>
                 <S.PlayerBtnShuffle>
-                  <S.PlayerBtnShuffleSvg alt="shuffle">
-                    <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
-                  </S.PlayerBtnShuffleSvg>
+                  <S.PlayerBtnShuffleSvg alt="shuffle" onClick={() => {
+                    dispatch(toggleIsShaffling());
+                  }}>
+                    {isSuffle ? (<use xlinkHref="img/icon/sprite.svg#icon-shuffle.act" />) : (<use xlinkHref="img/icon/sprite.svg#icon-shuffle" />)}
+                   </S.PlayerBtnShuffleSvg>
                 </S.PlayerBtnShuffle>
               </S.PlayerControls>
               <S.PlayerTrackPlay>
@@ -108,11 +141,11 @@ function Bar({ currentTodo, formatTime }) {
                   </S.TrackPlayImage>
                   <S.TrackPlayAlbum >
                     <S.TrackPlayAlbumLink href="http://">
-                      {currentTodo.name}
+                      {currentTrack.name}
                     </S.TrackPlayAlbumLink>
                     <S.TrackPlayAuthor>
                       <S.TrackPlayAuthorLink href="http://">
-                        {currentTodo.author}
+                        {currentTrack.author}
                       </S.TrackPlayAuthorLink>
                     </S.TrackPlayAuthor>
                   </S.TrackPlayAlbum>

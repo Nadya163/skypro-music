@@ -21,21 +21,22 @@ function Login() {
   });
   const navigate = useNavigate();
 
-  const handleLogin = async (data) => {
-    try {
-      console.log(data);
-      await LoginTodos(data);
-      localStorage.setItem('user', JSON.stringify(data)); 
-      console.log("Данные после сохранения в localStorage:", JSON.parse(localStorage.getItem('user')));
-      changingUserData(JSON.parse(localStorage.getItem('user')));
-        reset();
-        navigate("/");
-    } catch (error) {
-      setErrorMessage(error.message);
-      console.log("Произошла ошибка:", error);
-    }
+    const handleLogin = ({email, password}) => {
+      LoginTodos({
+        email: email,
+        password: password
+      })
+        .then((response) => {
+          console.log(response);
+          localStorage.setItem('user', JSON.stringify(response));
+          changingUserData(JSON.parse(localStorage.getItem('user')))
+          navigate('/');
+          reset();
+        }).catch((error) => {
+          setErrorMessage(error.message);
+        });
   };
-  
+
     return (
     <S.Wrapper>
       <S.ContainerEnter>
@@ -63,7 +64,7 @@ function Login() {
               placeholder="Пароль"
             />
             <div>{errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}</div>
-           <S.ModalInputEnter type="submit" value="Вход" disabled={!isValid} />
+           <S.ModalInputEnter type="submit"  disabled={!isValid}>Вход</S.ModalInputEnter >
             <Link to="/registration">
               <S.ModalBtnSignup type="button" >
                  Зарегистрироваться 

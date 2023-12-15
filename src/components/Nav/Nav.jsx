@@ -32,8 +32,6 @@ function Nav({ handleLogout }) {
           setIsOpen(!isOpen);
         }
       };
-
-  console.log(handleLogout);
   
   return (
     <S.MainNav>

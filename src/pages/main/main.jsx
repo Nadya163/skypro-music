@@ -15,9 +15,7 @@ export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, 
     const seconds = timeInSeconds % 60;
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds.toFixed()}`;
   };
-  // console.log(user);
 
-  console.log(addTodoError);
     return (
       <>
           <S.Main>

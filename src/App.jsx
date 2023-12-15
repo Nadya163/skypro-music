@@ -5,8 +5,11 @@ import { GlobalStyles } from './GlobalStyles';
 import AppRoutes from './routes';
 import getTodos from './api';
 import UserContext from './context'
+import { useDispatch } from 'react-redux';
+import { setCurrentTrack, setTrackList } from './store/redux/playerSlice';
 
 function App() {
+  const dispatch = useDispatch();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,12 +18,14 @@ function App() {
 
   const handleTodoClick = (todo) => {
     setCurrentTodo(todo)
+    dispatch(setCurrentTrack(todo))
   }
 
   useEffect(() => {
     getTodos()
       .then((todo) => {
         setTodos(todo);
+        dispatch(setTrackList(todo));
         setIsLoading(false);
       })
       .catch((error) => {
@@ -47,7 +52,7 @@ return (
               user={user}
               onClick={() => {
                 handleLogout();
-              }}
+              }} 
               handleLogout={handleLogout}
               todos={todos}
               setTodos={setTodos}
