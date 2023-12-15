@@ -4,13 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   playNextTrack,
   playPreviousTrack,
+  setPulsatingPoint,
+  toggleIsShaffling
+} from '../../store/redux/playerSlice';
+import {   
   selectorCurrentTrack,
   selectorCurrentTrackIndex,
   selectorIsShaffling,
-  selectorTrackList, setPulsatingPoint, toggleIsShaffling
-} from '../../store/redux/playerSlice';
+  selectorTrackList, 
+  selectorTimeInSeconds
+ } from '../../store/selectors/selectors';
+import { formatTime,  } from '../../store/redux/timeSlice';
 
-function Bar({ formatTime }) {
+function Bar() {
   const dispatch = useDispatch();
   const audioRef = useRef(null);
 
@@ -24,6 +30,9 @@ function Bar({ formatTime }) {
   const currentTrack = useSelector(selectorCurrentTrack);
   const currentTrackIndex = useSelector(selectorCurrentTrackIndex);
   const isSuffle = useSelector(selectorIsShaffling);
+
+  const timeInSeconds = useSelector(selectorTimeInSeconds);
+  formatTime(timeInSeconds);
 
   const handleNextClick = () => {
     dispatch(playNextTrack());

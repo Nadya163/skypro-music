@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import * as S from './Playlist.style'
+import * as S from './FavoritesTrack.style'
 import trackArray from '../TrackArray';
 import { useSelector } from 'react-redux';
-import { selectPulsatingPoint, selectorCurrentTrack } from '../../store/selectors/selectors';
-import { formatTime } from '../../store/redux/timeSlice';
-import { selectorTimeInSeconds } from '../../store/selectors/selectors';
-import { useAddFavoriteTrackIDMutation, useDeleteFavoriteTrackIDMutation } from '../../apiServece';
-import { useContext } from 'react';
-import UserContext from '../../context';
+import { formatTime  } from '../../store/redux/timeSlice';
+import { 
+  selectorFavorites,
+  selectorTimeInSeconds,
+  selectPulsatingPoint,
+  selectorCurrentTrack } from '../../store/selectors/selectors';
+// import { useGetFavoriteTracksAllQuery } from '../../apiServece';
 
 function Loading() {
   return (
@@ -44,25 +45,15 @@ function Loading() {
   )
 }
 
-function Playlist({ todos, handleTodoClick, isLoading, setIsLoading }) {
-  const { userData } = useContext(UserContext);
+function AllFavoritesTrack({ todos, handleTodoClick, isLoading, setIsLoading }) {
   const pulsarPointer = useSelector(selectPulsatingPoint);
   const currentTrack = useSelector(selectorCurrentTrack);
   const timeInSeconds = useSelector(selectorTimeInSeconds);
   formatTime(timeInSeconds);
-  const [addFavoriteTrackID] = useAddFavoriteTrackIDMutation();
-  const [deleteFavoriteTrackID] = useDeleteFavoriteTrackIDMutation();
-
-  const handleFavoriteClick = (todo) => {
-      if (location.pathname === "/myplaylist" || todo?.stared_user?.find((user) => user.id === userData.id)) {
-      deleteFavoriteTrackID(todo.id)
-    } else {
-      addFavoriteTrackID(todo.id)
-      console.log(addFavoriteTrackID(todo.id));
-    }
-  };
-  
- 
+  const favoritesTrack = useSelector(selectorFavorites);
+  // const FavoriteTracksList = () => {
+  //   const { data: favoriteTracks, isLoading } = useGetFavoriteTracksAllQuery();
+   
   return (
     <S.ContentPlaylist>
       <S.PlaylistItem>
@@ -77,7 +68,9 @@ function Playlist({ todos, handleTodoClick, isLoading, setIsLoading }) {
           </>
         ) : (
           <div>
-            {todos.map((todo) => (
+            {favoritesTrack.map((todoId) => {
+              const todo = todos.find((todo) => todo.id === todoId);
+              return (
               <S.PlaylistTrack key={todo.id}>
                 <S.TrackTitle>
                   <S.TrackTitleImage>
@@ -90,6 +83,7 @@ function Playlist({ todos, handleTodoClick, isLoading, setIsLoading }) {
                     )
                     }
                   </S.TrackTitleImage>
+
                   <div>
                     <S.TrackTitleLink as={Link} onClick={() => handleTodoClick(todo)}>
                       {todo.name} <S.TrackTitleSpan> {todo.together} </S.TrackTitleSpan>
@@ -107,13 +101,14 @@ function Playlist({ todos, handleTodoClick, isLoading, setIsLoading }) {
                   </S.TrackAlbumLink>
                 </S.TrackAlbum>
                 <div>
-                  <S.TrackTimeSvg alt="time" onClick={() => handleFavoriteClick(todo)}>
+                  <S.TrackTimeSvg alt="time">
                     <use xlinkHref="img/icon/sprite.svg#icon-like" />
                   </S.TrackTimeSvg>
                   <S.TrackTimeText>{formatTime(todo.duration_in_seconds)}</S.TrackTimeText>
                 </div>
               </S.PlaylistTrack>
-            ))}
+            )
+            })}
           </div>
         )}
       </S.PlaylistItem>
@@ -121,5 +116,5 @@ function Playlist({ todos, handleTodoClick, isLoading, setIsLoading }) {
   )
 }
 
-export default Playlist;
+export default AllFavoritesTrack;
 

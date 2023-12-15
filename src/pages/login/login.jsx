@@ -5,9 +5,12 @@ import * as S from './login.style'
 import { LoginTodos } from '../../api';
 import { useContext } from 'react';
 import UserContext from '../../context';
+import { useGetTokenMutation } from '../../apiServece';
 
 
 function Login() {
+
+  const [getToken] = useGetTokenMutation();
   const [errorMessage, setErrorMessage] = useState(null);
   const {changingUserData} = useContext(UserContext);
 
@@ -19,6 +22,7 @@ function Login() {
   } = useForm({
     mode: "onBlur"
   });
+
   const navigate = useNavigate();
 
     const handleLogin = ({email, password}) => {
@@ -35,6 +39,14 @@ function Login() {
         }).catch((error) => {
           setErrorMessage(error.message);
         });
+        getToken({email, password}).then(
+          (token) => {
+            console.log(token);
+            localStorage.setItem('access', (token.data.access)),
+            localStorage.setItem('refresh', (token.data.refresh))
+            console.log(localStorage.getItem('access'));
+          }
+        )
   };
 
     return (

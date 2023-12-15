@@ -34,7 +34,7 @@ function Loading() {
 
 function Sidebar({ isLoading, handleLogout }) {
 const {userData} = useContext(UserContext);
-console.log(userData.username);
+// console.log(userData.username);
 
     return (
       <S.MainSidebar>

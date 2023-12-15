@@ -1,16 +1,25 @@
-import { styled } from 'styled-components';
+import * as S from '../../App.style';
+import { useGetFavoriteTracksAllQuery } from '../../apiServece';
+import AllFavoritesTrack from '../../components/FavoritesTrack/FavoritesTrack';
+import PlaylistTitle from '../../components/PlaylistTitle/PlaylistTitle';
 
-export const StyledConteiner = styled.div`
-height: 100px;
-display: flex;
-align-items: center;
-justify-content: space-around;
-`;
 
-export default function MyPlaylist() {
+
+export default function Main({ todos, addTodoError }) {
+  const { data=[] } = useGetFavoriteTracksAllQuery()
+  // , isError, error, isLoading
+  console.log(data);
     return (
-      <StyledConteiner>
-        <h1>Мой плелист</h1>
-      </StyledConteiner>
+      <>
+            <S.CenterblockH2>Мои треки</S.CenterblockH2>
+            <S.CenterblockContent>
+              <PlaylistTitle />
+              {addTodoError && <p>Не удалось загрузить плейлист, попробуйте позже: {addTodoError}.</p>}  
+              <AllFavoritesTrack 
+                todos={todos} 
+              />
+            </S.CenterblockContent>
+      </>
     );
-  }
+
+}

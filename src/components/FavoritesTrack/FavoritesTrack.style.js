@@ -202,14 +202,15 @@ export const ContentPlaylist = styled.div`
       -webkit-box-direction: normal;
       -ms-flex-direction: column;
       flex-direction: column;
+
 `;
 
 export const PlaylistItem = styled.div`
   width: 100%;
   display: block;
   margin-bottom: 12px;
-    height: 900px;
-      overflow-y: auto;
+  height: 900px;
+  overflow-y: scroll;
       &::-webkit-scrollbar {
         width: 1px;
       }

@@ -33,7 +33,7 @@ function App() {
       });
   }, []);
 
-  console.log(user);
+  // console.log(user);
 
     const navigate = useNavigate();
 
