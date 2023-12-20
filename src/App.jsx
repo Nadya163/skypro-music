@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './App.style';
 import { GlobalStyles } from './GlobalStyles';
 import AppRoutes from './routes';
-import getTodos from './api';
+// import getTodos from './api';
 import UserContext from './context'
 import { useDispatch } from 'react-redux';
-import { setCurrentTrack, setTrackList } from './store/redux/playerSlice';
+import { setCurrentTrack } from './store/redux/playerSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,24 +14,24 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentTodo, setCurrentTodo] = useState(null);
-  const [addTodoError, setAddTodoError] = useState(null);
+  // const [addTodoError, setAddTodoError] = useState(null);
 
   const handleTodoClick = (todo) => {
     setCurrentTodo(todo)
     dispatch(setCurrentTrack(todo))
   }
 
-  useEffect(() => {
-    getTodos()
-      .then((todo) => {
-        setTodos(todo);
-        dispatch(setTrackList(todo));
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setAddTodoError(error.message); 
-      });
-  }, []);
+  // useEffect(() => {
+  //   getTodos()
+  //     .then((todo) => {
+  //       setTodos(todo);
+  //       dispatch(setTrackList(todo));
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setAddTodoError(error.message); 
+  //     });
+  // }, []);
 
   // console.log(user);
 
@@ -61,7 +61,7 @@ return (
               setIsLoading={setIsLoading}
               currentTodo={currentTodo}
               handleTodoClick={handleTodoClick}
-              addTodoError={addTodoError}
+              // addTodoError={addTodoError}
             />
         </S.Container>
       </S.Wrapper>

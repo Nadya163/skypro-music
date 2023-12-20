@@ -29,6 +29,7 @@ function AppRoutes({ user, todos, isLoading, setIsLoading, currentTodo, handleTo
             />} /> 
             <Route path="/myplaylist" element={<MyPlaylist 
             addTodoError={addTodoError}
+            handleTodoClick={handleTodoClick}
             todos={todos}  />} /> 
             <Route path="/category/:id" element={<Category />} />
             <Route path="*" element={<Error />} /> 

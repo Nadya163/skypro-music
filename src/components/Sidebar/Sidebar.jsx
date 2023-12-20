@@ -1,46 +1,48 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import * as S from './Sidebar.style';
-import sidebarArray from "../SidebarArray";
+import sidebarArray from "../Array/SidebarArray";
 import UserContext from "../../context";
 
-function LoadingPersonal() {
-  return (
-    <S.SidebarPersonal>
-    <S.SidebarPersonalNameloading>
-      <img src="img/icon/playlistName.svg" alt="" />
-    </S.SidebarPersonalNameloading>
-    <S.SidebarIcon>
-      <svg alt="logout">
-        <use xlinkHref="img/icon/sprite.svg" />
-      </svg>
-    </S.SidebarIcon>
-  </S.SidebarPersonal>
-)
-}
+// function LoadingPersonal() {
+//   return (
+//     <S.SidebarPersonal>
+//     <S.SidebarPersonalNameloading>
+//       <img src="img/icon/playlistName.svg" alt="" />
+//     </S.SidebarPersonalNameloading>
+//     <S.SidebarIcon>
+//       <svg alt="logout">
+//         <use xlinkHref="img/icon/sprite.svg" />
+//       </svg>
+//     </S.SidebarIcon>
+//   </S.SidebarPersonal>
+// )
+// }
 
-function Loading() {
-  return (
-    <S.SidebarItem>
-    <S.SidebarLinkLoading href="/">
-      <S.SidebarImg
-        src="img/icon/collectionPlaylist.svg"
-        alt="day's playlist"
-      />
-    </S.SidebarLinkLoading>
-  </S.SidebarItem>
-)
-}
+// function Loading() {
+//   return (
+//     <S.SidebarItem>
+//     <S.SidebarLinkLoading href="/">
+//       <S.SidebarImg
+//         src="img/icon/collectionPlaylist.svg"
+//         alt="day's playlist"
+//       />
+//     </S.SidebarLinkLoading>
+//   </S.SidebarItem>
+// )
+// }
 
-function Sidebar({ isLoading, handleLogout }) {
+function Sidebar({ 
+  // isLoading,
+   handleLogout }) {
 const {userData} = useContext(UserContext);
 // console.log(userData.username);
 
     return (
       <S.MainSidebar>
-        {isLoading ? (
+        {/* {isLoading ? (
           <LoadingPersonal />
-        ) : (
+        ) : ( */}
           <S.SidebarPersonal>
           <S.SidebarPersonalName>{userData.username}</S.SidebarPersonalName>
           <S.SidebarIcon>
@@ -49,10 +51,10 @@ const {userData} = useContext(UserContext);
             </svg>
           </S.SidebarIcon>
         </S.SidebarPersonal>
-        )}
+        {/* )} */}
             <S.SidebarBlock>
               <S.SidebarList>
-              {isLoading ? (
+              {/* {isLoading ? (
           <>
               {sidebarArray.map((item) => (
                         <Loading key={item.id}
@@ -60,7 +62,7 @@ const {userData} = useContext(UserContext);
               />
               ))}
               </>
-        ) : (
+        ) : ( */}
             <>
               {sidebarArray.map((item) => (
                       <S.SidebarItem key={item.id}>
@@ -73,7 +75,7 @@ const {userData} = useContext(UserContext);
                       </S.SidebarItem>
               ))}
             </>
-        )}
+        {/* )} */}
           </S.SidebarList>
         </S.SidebarBlock>
     </S.MainSidebar>

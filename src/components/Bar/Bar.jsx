@@ -42,8 +42,6 @@ function Bar() {
     dispatch(playPreviousTrack());
   };
 
-  // console.log(currentTrack);
-
   const handleStart = () => {
     audioRef.current?.play();
     setIsPlaying(true);

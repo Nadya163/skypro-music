@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { styled } from 'styled-components';
-import sidebarArray from "../../components/SidebarArray";
+import sidebarArray from "../../components/Array/SidebarArray";
 
 export const StyledSidebar = styled.div`
   height: 100px;

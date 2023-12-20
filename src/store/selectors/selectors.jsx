@@ -5,3 +5,4 @@ export const selectorIsShaffling = (state) => state.track.isShaffling;
 export const selectPulsatingPoint = (store) => store.track.pulsatingPoint;
 export const selectorTimeInSeconds = (state) => state.time.timeInSeconds;
 export const selectorFavorites = (state) => state.track.favoritesTrack;
+

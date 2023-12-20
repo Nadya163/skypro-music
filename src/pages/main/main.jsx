@@ -4,7 +4,7 @@ import Playlist from '../../components/Playlist/Playlist';
 import PlaylistTitle from '../../components/PlaylistTitle/PlaylistTitle';
 
 
-export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, addTodoError }) {
+export default function Main({ todos, isLoading, setIsLoading, handleTodoClick }) {
 
  // console.log(user);
 
@@ -15,7 +15,7 @@ export default function Main({ todos, isLoading, setIsLoading, handleTodoClick, 
             <FilterComponents todos={todos} />
             <S.CenterblockContent>
                 <PlaylistTitle />
-                {addTodoError && <p>Не удалось загрузить плейлист, попробуйте позже: {addTodoError}.</p>}               
+                {/* {addTodoError && <p>Не удалось загрузить плейлист, попробуйте позже: {addTodoError}.</p>}                */}
                 <Playlist
                     todos={todos}
                     handleTodoClick={handleTodoClick}

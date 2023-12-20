@@ -22,37 +22,38 @@ const playerSlice = createSlice({
       state.trackList = action.payload;
     },
     playNextTrack: state => {
+      const currentList = state.isShaffling ? state.favoritesTrack : state.trackList;
+      
       if (state.isShaffling) {
         state.playedTacks.push(state.currentTrack);
-        state.currentTrack = state.trackList[Math.floor(Math.random() * state.trackList.length)];
-      console.log(state.currentTrack);
-      console.log(state.trackList);
+        state.currentTrack = currentList[Math.floor(Math.random() * currentList.length)];
         return;
       }
 
-      const currentIndex = state.trackList.findIndex(track => track.id === state.currentTrack.id);
+      const currentIndex = currentList.findIndex(track => track.id === state.currentTrack.id);
 
-      if (currentIndex === -1 || currentIndex === state.trackList.length - 1) {
+      if (currentIndex === -1 || currentIndex === currentList.length - 1) {
         return;
       }
 
-      state.currentTrack = state.trackList[currentIndex + 1];
+      state.currentTrack = currentList[currentIndex + 1];
     },
     playPreviousTrack: state => {
+      const currentList = state.isShaffling ? state.favoritesTrack : state.trackList;
+      
       if (state.isShaffling) {
         if (state.playedTacks.length === 0) {
         return;  
         }
         state.currentTrack = state.playedTacks.pop();
-        console.log(state.playedTacks);
         return;
-        }
+      }
 
-      const currentIndex = state.trackList.findIndex(track => track.id === state.currentTrack.id);
+      const currentIndex = currentList.findIndex(track => track.id === state.currentTrack.id);
       if (currentIndex === -1 || currentIndex === 0) {
         return;
       }
-      state.currentTrack = state.trackList[currentIndex - 1];
+      state.currentTrack = currentList[currentIndex - 1];
     },
     setPulsatingPoint: (state, action) => {
       state.pulsatingPoint = action.payload;
@@ -135,14 +136,7 @@ export default playerSlice.reducer;
 //       state.pulsatingPoint = action.payload;
 //     },
 //     setFavoritesTrack: (state, action) => {
-//       const trackId = action.payload;
-//       const index = state.favoritesTrack.indexOf(trackId);
-
-//       if (index !== -1) {
-//         state.favoritesTrack.splice(index, 1);
-//       } else (
-//         state.favoritesTrack.push(trackId)
-//       )
+//       state.favoritesTrack = action.payload;
 //     },
 //   }
 // });
@@ -158,6 +152,4 @@ export default playerSlice.reducer;
 //  } = playerSlice.actions;
 
 // export default playerSlice.reducer;
-
-
 
