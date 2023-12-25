@@ -34,6 +34,8 @@ function Bar() {
   const timeInSeconds = useSelector(selectorTimeInSeconds);
   formatTime(timeInSeconds);
 
+  console.log(trackList);
+
   const handleNextClick = () => {
     dispatch(playNextTrack());
   };
@@ -86,6 +88,8 @@ function Bar() {
       }
     };
   }, [currentTrack.track_file]);
+
+  // console.log([currentTrack.track_file]);
 
   return (
     <>

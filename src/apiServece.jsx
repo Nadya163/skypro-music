@@ -166,4 +166,4 @@ export const {
   useDeleteFavoriteTrackIDMutation,
   useGetAllMusicQuery,
   useGetSelectionsQuery
-} = fetchAllTracks
+} = fetchAllTracks;

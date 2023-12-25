@@ -17,7 +17,7 @@ function App() {
   // const [addTodoError, setAddTodoError] = useState(null);
 
   const handleTodoClick = (todo) => {
-    setCurrentTodo(todo)
+    setCurrentTodo(todo);
     dispatch(setCurrentTrack(todo))
   }
 

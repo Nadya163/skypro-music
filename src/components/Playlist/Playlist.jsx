@@ -9,6 +9,9 @@ import { useGetAllMusicQuery } from '../../apiServece';
 // import { useContext } from 'react';
 // import UserContext from '../../context';
 import PlaylistArray from '../Array/PlaylistArray';
+import { useDispatch } from 'react-redux';
+import { setTrackList } from '../../store/redux/playerSlice';
+// import { useEffect } from 'react';
 
 // function Loading() {
 //   return (
@@ -48,10 +51,14 @@ import PlaylistArray from '../Array/PlaylistArray';
 function Playlist({ handleTodoClick
   // , isLoading, setIsLoading
  }) {
-  
+   const dispatch = useDispatch();
   const { data } = useGetAllMusicQuery();
 
-  console.log(data);
+    setTimeout(() => {
+      dispatch(setTrackList(data))
+    }, 500);
+
+  // console.log(data);
    
   return (
     <S.ContentPlaylist>
@@ -71,7 +78,6 @@ function Playlist({ handleTodoClick
               <PlaylistArray 
               key={todo.id}
               todo={todo}
-              data={data}
               handleTodoClick={handleTodoClick}
                />
    
