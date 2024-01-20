@@ -1,17 +1,17 @@
 const sidebarArray = [
 {
-    name: "day's playlist",
-    img: "img/playlist01.png",
+    name: "Классическая музыка",
+    img: "../../../img/playlist-classic.png",
     id: 1
   },
   {
-    name: "100 dance hits",
-    img: "img/playlist02.png",
+    name: "Электронная музыка",
+    img: "../../../img/playlist-electro.png",
     id: 2
   },
   {
-    name: "indie music",
-    img: "img/playlist03.png",
+    name: "Рок музыка",
+    img: "../../../img/playlist-rock.png",
     id: 3
   }
   ]

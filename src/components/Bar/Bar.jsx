@@ -2,19 +2,22 @@ import { useState,  useRef, useEffect } from 'react';
 import * as S from './Bar.style'
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  playNextTrack,
-  playPreviousTrack,
-  setPulsatingPoint,
-  toggleIsShaffling
+    playNextTrack,
+    playPreviousTrack,
+   setCurrentTrackList,
+   setPulsatingPoint,
+    toggleIsShaffling,
 } from '../../store/redux/playerSlice';
-import {   
+import { 
+  selectorCategoryTrackId,
   selectorCurrentTrack,
-  selectorCurrentTrackIndex,
-  selectorIsShaffling,
-  selectorTrackList, 
-  selectorTimeInSeconds
+  selectorFavorites,
+  selectorIsShaffling, 
+  selectorTrackList
  } from '../../store/selectors/selectors';
-import { formatTime,  } from '../../store/redux/timeSlice';
+import { formatTime } from '../../store/redux/timeSlice';
+
+
 
 function Bar() {
   const dispatch = useDispatch();
@@ -28,14 +31,26 @@ function Bar() {
 
   const trackList = useSelector(selectorTrackList);
   const currentTrack = useSelector(selectorCurrentTrack);
-  const currentTrackIndex = useSelector(selectorCurrentTrackIndex);
+  const favoritesTrack = useSelector(selectorFavorites);
+  const categoryTrackId = useSelector(selectorCategoryTrackId);
   const isSuffle = useSelector(selectorIsShaffling);
-
-  const timeInSeconds = useSelector(selectorTimeInSeconds);
-  formatTime(timeInSeconds);
-
   console.log(trackList);
 
+  useEffect(() => {
+    if (location.pathname === "/") {
+      dispatch(setCurrentTrackList(trackList))
+    }
+    if (location.pathname === "/myplaylist") {
+      dispatch(setCurrentTrackList(favoritesTrack));
+    }
+    if (
+      location.pathname === `/category/1` ||
+      location.pathname === `/category/2` ||
+      location.pathname === `/category/3`
+    ) {
+      dispatch(setCurrentTrackList(categoryTrackId))
+    }
+  }, [dispatch, favoritesTrack, trackList, categoryTrackId])
   const handleNextClick = () => {
     dispatch(playNextTrack());
   };
@@ -89,8 +104,6 @@ function Bar() {
     };
   }, [currentTrack.track_file]);
 
-  // console.log([currentTrack.track_file]);
-
   return (
     <>
     <S.Audio controls ref={audioRef} loop={isLoop} src={currentTrack.track_file} />
@@ -124,7 +137,7 @@ function Bar() {
                   (<use xlinkHref="img/icon/sprite.svg#icon-pause" />) : (<use xlinkHref="img/icon/sprite.svg#icon-play" />)}
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
-                <S.PlayerBtnNext  type='button' onClick={handleNextClick} disabled={currentTrackIndex === trackList.length - 1}>
+                <S.PlayerBtnNext  type='button' onClick={handleNextClick}>
                   <S.PlayerBtnNextSvg alt="next">
                     <use xlinkHref="img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>

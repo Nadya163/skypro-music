@@ -2,10 +2,10 @@ import { Outlet } from 'react-router-dom';
 import * as S from '../App.style';
 import Bar from '../components/Bar/Bar';
 import Nav from '../components/Nav/Nav';
-import Search from '../components/Search/Search.style';
+import Search from '../components/Search/Search';
 import Sidebar from '../components/Sidebar/Sidebar';
 
-const Layout =({ isLoading, currentTodo, handleLogout }) => {
+const Layout =({ currentTodo, handleLogout }) => {
 
     return (
         <>
@@ -18,9 +18,8 @@ const Layout =({ isLoading, currentTodo, handleLogout }) => {
             <Outlet />
           </S.MainCenterblock>
           <Sidebar 
-          isLoading={isLoading}
            handleLogout={handleLogout} />
-          {currentTodo ? (<Bar currentTodo={currentTodo} />) : null}
+          {currentTodo ? (<Bar />) : null}
         </S.Main>
         <footer className="footer" />
         </>

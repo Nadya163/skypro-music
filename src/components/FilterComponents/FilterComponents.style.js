@@ -117,8 +117,23 @@ export const ListAuthorLink = styled.a`
     font-weight: 400;
     line-height: 18px;
     letter-spacing: 0.016px;
+    color: ${props => props.$isActive ? 'rgba(182, 114, 255, 1)' : '#FFF'};
     &:hover {
       color: rgba(182, 114, 255, 1);
       text-decoration: underline;
     }
+`;
+
+export const MenuFilterSort = styled.div`
+    height: 200px;
+    width: 248px;
+    display: inline-flex;
+    padding: 34px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 12px;
+    background: rgba(49, 49, 49, 1);
+    position: absolute;
+    top: 50px;
 `;

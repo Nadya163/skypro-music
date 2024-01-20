@@ -9,7 +9,7 @@ import Error from "./pages/error/error";
 import ProtectedRoute from "./components/protected-route";
 import Layout from "./components/Layout";
 
-function AppRoutes({ user, todos, isLoading, setIsLoading, currentTodo, handleTodoClick, addTodoError, handleLogout }) {
+function AppRoutes({ user, currentTodo, handleTodoClick, handleLogout }) {
   return (
     <Routes>
       <Route path="/login" element={<Login />} /> 
@@ -17,21 +17,16 @@ function AppRoutes({ user, todos, isLoading, setIsLoading, currentTodo, handleTo
       <Route element={<ProtectedRoute user={user} />}>
         <Route path="/" element={<Layout 
               handleLogout={handleLogout}
-              isLoading={isLoading}
               currentTodo={currentTodo}
         />}>
             <Route index element={<Main 
-              todos={todos} 
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
               handleTodoClick={handleTodoClick}
-              addTodoError={addTodoError}
             />} /> 
             <Route path="/myplaylist" element={<MyPlaylist 
-            addTodoError={addTodoError}
             handleTodoClick={handleTodoClick}
-            todos={todos}  />} /> 
-            <Route path="/category/:id" element={<Category />} />
+              />} /> 
+            <Route path="/category/:id" element={<Category
+             handleTodoClick={handleTodoClick} />} />
             <Route path="*" element={<Error />} /> 
         </Route>
       </Route>

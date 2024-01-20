@@ -75,8 +75,8 @@ export const SidebarLinkLoading = styled.a`
 `;
 
 export const SidebarImg = styled.img`
-    width: 100%;
-    height: auto;
+    width: 250px;
+    height: 150px;
 `;
 
 export const MainSidebar = styled.div`
