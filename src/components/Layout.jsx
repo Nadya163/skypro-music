@@ -19,7 +19,7 @@ const Layout =({ currentTodo, handleLogout }) => {
           </S.MainCenterblock>
           <Sidebar 
            handleLogout={handleLogout} />
-          {currentTodo ? (<Bar />) : null}
+          {currentTodo ? (<Bar  />) : null}
         </S.Main>
         <footer className="footer" />
         </>

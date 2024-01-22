@@ -13,3 +13,5 @@ export const selectFilterGenres = (state) => state.track.filterGenres;
 export const selectDeleteFilterGenres = (state) => state.track.deleteFilterGenres;
 export const selectActiveLinkOnFilters = (state) => state.track.activeLinkOnFilters;
 export const selectToggleShuffleTrack = (state) => state.track.shuffleAllTracks;
+export const selectTrackInfo = (state) => state.track.trackInfo;
+export const selectorcurrentTrackList = (state) => state.track.currentTrackList;

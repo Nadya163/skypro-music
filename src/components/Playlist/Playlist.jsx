@@ -47,8 +47,6 @@ function Playlist({ handleTodoClick }) {
       return searchTrack
     }
   }
-  
-  // console.log(searchTrack);
    
   return (
     <S.ContentPlaylist>

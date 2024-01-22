@@ -8,6 +8,7 @@ const initialState = {
   pulsatingPoint: false,
   favoritesTrack: [],
   categoryTrackId: [],
+  selectedPlaylist: [],
   searchTrack: '',
   trackInfo: null,
   filterAuthors: [],

@@ -15,7 +15,6 @@ export default function FavoriteTrack({ handleTodoClick }) {
   const dispatch = useDispatch();
   const { addTodoError, isLoading } = useGetSelectionsQuery();
   const searchTrackTitle = useSelector(selectorSearchTrack);
-  // console.log(data);
 
   setTimeout(() => {
     dispatch(setFavoritesTrack(data))

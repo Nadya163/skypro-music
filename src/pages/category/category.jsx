@@ -35,8 +35,6 @@ export default function Category({ handleTodoClick }) {
     return matchesTitle
   });
   
-  console.log(searchTrack)
-
   return (
     <>
       <S.CenterblockH2>{sidebar.name}</S.CenterblockH2>

@@ -6,6 +6,7 @@ import AppRoutes from './routes';
 import UserContext from './context'
 import { useDispatch } from 'react-redux';
 import { setCurrentTrack } from './store/redux/playerSlice';
+import { resetAuth } from './store/redux/authSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    resetAuth();
     navigate('/login');
   };
 

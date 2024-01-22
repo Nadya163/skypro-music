@@ -4,12 +4,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as S from './registration.style';
 import { SignupTodos } from '../../api';
 import UserContext from '../../context';
+import { useGetTokenMutation } from '../../apiServece';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../../store/redux/authSlice';
 
 
 function Register() { 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
+  const [error, setError] = useState(null);
+  const [getToken] = useGetTokenMutation();
   const navigate = useNavigate();
   const {changingUserData} = useContext(UserContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const {
     register,
@@ -21,19 +29,40 @@ function Register() {
     mode: "onBlur"
   });
 
-    const handleRegister = async (data) => {
-    try {
-      console.log(data);
-      await SignupTodos(data);
-      localStorage.setItem('user', JSON.stringify(data)); 
-      console.log("Данные после сохранения в localStorage:", JSON.parse(localStorage.getItem('user')));
-      changingUserData(JSON.parse(localStorage.getItem('user')));
+  const responseToken = () => {
+    getToken({ email, password })
+      .unwrap()
+      .then((token) => {
+        dispatch(
+          setAuth({
+            access: token.access,
+            refresh: token.refresh,
+            user: JSON.parse(localStorage.getItem("user")),
+          })
+        );
+      })
+      .catch((error) => {
+        return error;
+      })
+  };
+
+    const handleRegister = async () => {
+      await SignupTodos({
+        email: email,
+        password: password,
+        username: username
+      })
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response));
+        changingUserData(JSON.parse(localStorage.getItem('user')))
+        navigate('/');
         reset();
-        navigate("/");
-    } catch (error) {
-      setErrorMessage(error.message);
-      console.log("Произошла ошибка:", error);
-    }
+      }).catch((error) => {
+        setError(error.message);
+      })
+    .finally(() => {
+      responseToken();
+    });
   };
 
   const validPassword = (value) => {
@@ -58,7 +87,9 @@ function Register() {
               <S.ModalInput
                 {...register("username", {
                   required: "Поле обязательно к заполнению.",
-                  onChange: ((event) => event.target.value)
+                  onChange: (event) => {
+                    setUsername(event.target.value);
+                  }
                 })}
                 type="text"
                 placeholder="Никнейм"
@@ -66,23 +97,27 @@ function Register() {
               <S.ModalInput
                 {...register("email", {
                   required: "Поле обязательно к заполнению.",
-                  onChange: ((event) => event.target.value)
+                  onChange: (event) => {
+                    setEmail(event.target.value);
+                  }
                 })}
                 type="email"
                 placeholder="Почта"
               />
-              <S.ErrorMessage>
-              {errors?.email && <S.ErrorMessage>{errors?.email?.message}</S.ErrorMessage>}
-                </S.ErrorMessage>
+              <S.error>
+              {errors?.email && <S.error>{errors?.email?.message}</S.error>}
+                </S.error>
               <S.ModalInput
               {...register("password", {
                 required: "Поле обязательно к заполнению.",
-                onChange: ((event) => event.target.value)
+                onChange: (event) => {
+                    setPassword(event.target.value)
+                  }
               })}
                 type="password"
                 placeholder="Пароль"
               />
-              {errors?.password && <S.ErrorMessage>{errors?.password?.message}</S.ErrorMessage>}
+              {errors?.password && <S.error>{errors?.password?.message}</S.error>}
               <S.ModalInput
                 {...register("repeatPassword", {
                     required: "Поле обязательно к заполнению.",
@@ -93,9 +128,9 @@ function Register() {
                 placeholder="Повторите пароль"
               />
               {errors?.repeatPassword && (
-                  <S.ErrorMessage>{errors?.repeatPassword?.message || "Пароли не совпадают."}</S.ErrorMessage>
+                  <S.error>{errors?.repeatPassword?.message || "Пароли не совпадают."}</S.error>
                 )}
-              <div>{errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}</div>
+              <div>{error && <S.error>{error}</S.error>}</div>
               <S.ModalImputSignupEnt type="submit" value="Зарегистрироваться" disabled={!isValid} />
             </S.ModalFormLogin>
           </S.ModalBlock>

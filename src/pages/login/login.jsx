@@ -33,7 +33,6 @@ function Login() {
     getToken({ email, password })
       .unwrap()
       .then((token) => {
-        console.log(token);
         dispatch(
           setAuth({
             access: token.access,
@@ -53,7 +52,6 @@ function Login() {
         password: password
       })
         .then((response) => {
-          console.log(response);
           localStorage.setItem('user', JSON.stringify(response));
           changingUserData(JSON.parse(localStorage.getItem('user')))
           navigate('/');

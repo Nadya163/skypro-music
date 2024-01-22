@@ -20,6 +20,7 @@ const initialState = {
   last_name: "",
 };
 
+
 const authSlice = createSlice({
   name: "auth",
   initialState: getAuthFromLocalStorage() ?? initialState,
@@ -35,7 +36,7 @@ const authSlice = createSlice({
       state.first_name = payload.first_name;
       state.last_name = payload.last_name;
 
-      localStorage.setItem(AUTH_INFO, JSON.stringify(state));
+      localStorage.setItem(AUTH_INFO, JSON.stringify(state)); 
     },
       resetAuth(state) {
       state.id = 0;
@@ -47,7 +48,6 @@ const authSlice = createSlice({
       localStorage.removeItem(AUTH_INFO);
     }
   },
-
 });
-export const { setAuth } = authSlice.actions;
+export const { setAuth, resetAuth } = authSlice.actions;
 export const authReducer = authSlice.reducer;

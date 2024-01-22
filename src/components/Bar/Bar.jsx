@@ -16,6 +16,7 @@ import {
   selectorTrackList
  } from '../../store/selectors/selectors';
 import { formatTime } from '../../store/redux/timeSlice';
+import LikeAndDislike from './LikeDislike/LikeDislike';
 
 
 
@@ -34,7 +35,6 @@ function Bar() {
   const favoritesTrack = useSelector(selectorFavorites);
   const categoryTrackId = useSelector(selectorCategoryTrackId);
   const isSuffle = useSelector(selectorIsShaffling);
-  console.log(trackList);
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -51,6 +51,7 @@ function Bar() {
       dispatch(setCurrentTrackList(categoryTrackId))
     }
   }, [dispatch, favoritesTrack, trackList, categoryTrackId])
+  
   const handleNextClick = () => {
     dispatch(playNextTrack());
   };
@@ -175,18 +176,7 @@ function Bar() {
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>
               </S.PlayerTrackPlay>
-              <S.TrackPlayLikeDis>
-                <S.TrackPlayLike>
-                  <S.TrackPlayLikeSvg alt="like">
-                    <use xlinkHref="img/icon/sprite.svg#icon-like" />
-                  </S.TrackPlayLikeSvg>
-                </S.TrackPlayLike>
-                <S.TrackPlayDislike>
-                  <S.TrackPlayDislikeSvg alt="dislike">
-                    <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
-                  </S.TrackPlayDislikeSvg>
-                </S.TrackPlayDislike>
-              </S.TrackPlayLikeDis>
+              <LikeAndDislike />
             </S.BarPlayer>
           </S.BarPlayerBlock>
           <S.BarVolumeBlock>
@@ -214,3 +204,16 @@ function Bar() {
 }
 
 export default Bar;
+
+{/* <S.TrackPlayLikeDis>
+<S.TrackPlayLike>
+  <S.TrackPlayLikeSvg alt="like">
+    <use xlinkHref="img/icon/sprite.svg#icon-like" />
+  </S.TrackPlayLikeSvg>
+</S.TrackPlayLike>
+<S.TrackPlayDislike>
+  <S.TrackPlayDislikeSvg alt="dislike">
+    <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
+  </S.TrackPlayDislikeSvg>
+</S.TrackPlayDislike>
+</S.TrackPlayLikeDis> */}

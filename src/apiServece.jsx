@@ -8,7 +8,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.access;
-      console.debug("Использую токен из стора", { token });
+      // console.debug("Использую токен из стора", { token });
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -25,7 +25,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   }
 
   const forceLogout = () => {
-    console.debug("Принудительная авторизация!");
+    // console.debug("Принудительная авторизация!");
     api.dispatch(setAuth(null));
     window.location.href = '/login';
   };

@@ -8,7 +8,7 @@ import { useAddFavoriteTrackIDMutation, useDeleteFavoriteTrackIDMutation } from 
 import { useContext } from 'react';
 import UserContext from '../../context';
 
-function PlaylistArray({ todo, handleTodoClick }) {
+function PlaylistArray({ todo, handleTodoClick }) { 
   const { userData } = useContext(UserContext);
   const pulsarPointer = useSelector(selectPulsatingPoint);
   const currentTrack = useSelector(selectorCurrentTrack);
@@ -18,14 +18,13 @@ function PlaylistArray({ todo, handleTodoClick }) {
   const [deleteFavoriteTrackID] = useDeleteFavoriteTrackIDMutation();
 
   const handleFavoriteClick = (todo) => {
-    console.log(todo);
       if (location.pathname === "/myplaylist" || todo?.stared_user?.find((user) => user.id === userData.id)) {
       deleteFavoriteTrackID(todo.id)
     } else {
       addFavoriteTrackID(todo.id)
     }
   }
-  // console.log(todo);
+
  
   return (
    <S.PlaylistTrack key={todo.id}>
