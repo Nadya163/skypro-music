@@ -4,16 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     playNextTrack,
     playPreviousTrack,
-   setCurrentTrackList,
    setPulsatingPoint,
     toggleIsShaffling,
 } from '../../store/redux/playerSlice';
 import { 
-  selectorCategoryTrackId,
   selectorCurrentTrack,
-  selectorFavorites,
   selectorIsShaffling, 
-  selectorTrackList
  } from '../../store/selectors/selectors';
 import { formatTime } from '../../store/redux/timeSlice';
 import LikeAndDislike from './LikeDislike/LikeDislike';
@@ -30,27 +26,9 @@ function Bar() {
   const [duration, setDuration] = useState(0);
   const [isLoop, setIsLoop] = useState(false);
 
-  const trackList = useSelector(selectorTrackList);
   const currentTrack = useSelector(selectorCurrentTrack);
-  const favoritesTrack = useSelector(selectorFavorites);
-  const categoryTrackId = useSelector(selectorCategoryTrackId);
   const isSuffle = useSelector(selectorIsShaffling);
 
-  useEffect(() => {
-    if (location.pathname === "/") {
-      dispatch(setCurrentTrackList(trackList))
-    }
-    if (location.pathname === "/myplaylist") {
-      dispatch(setCurrentTrackList(favoritesTrack));
-    }
-    if (
-      location.pathname === `/category/1` ||
-      location.pathname === `/category/2` ||
-      location.pathname === `/category/3`
-    ) {
-      dispatch(setCurrentTrackList(categoryTrackId))
-    }
-  }, [dispatch, favoritesTrack, trackList, categoryTrackId])
   
   const handleNextClick = () => {
     dispatch(playNextTrack());
@@ -204,16 +182,3 @@ function Bar() {
 }
 
 export default Bar;
-
-{/* <S.TrackPlayLikeDis>
-<S.TrackPlayLike>
-  <S.TrackPlayLikeSvg alt="like">
-    <use xlinkHref="img/icon/sprite.svg#icon-like" />
-  </S.TrackPlayLikeSvg>
-</S.TrackPlayLike>
-<S.TrackPlayDislike>
-  <S.TrackPlayDislikeSvg alt="dislike">
-    <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
-  </S.TrackPlayDislikeSvg>
-</S.TrackPlayDislike>
-</S.TrackPlayLikeDis> */}
