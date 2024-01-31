@@ -24,7 +24,6 @@ function PlaylistArray({ todo, handleTodoClick }) {
       addFavoriteTrackID(todo.id)
     }
   }
-
  
   return (
    <S.PlaylistTrack key={todo.id}>

@@ -1,10 +1,16 @@
 import * as S from './Playlist.style'
-import { useGetAllMusicQuery } from '../../apiServece';
+import { useGetAllMusicQuery, useGetSelectionsQuery } from '../../apiServece';
 import PlaylistArray from '../Array/PlaylistArray';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSortTrackFilter, setTrackList } from '../../store/redux/playerSlice';
+import { 
+  useDispatch, 
+  useSelector } from 'react-redux';
+import { 
+  setSortTrackFilter, 
+  setTrackList
+ } from '../../store/redux/playerSlice';
 import { selectFilterAuthors, selectFilterGenres, selectFilterSort, selectorSearchTrack } from '../../store/selectors/selectors';
 import { useEffect } from 'react';
+import Skeletone from '../Skeletone/Skeletone';
 
 function Playlist({ handleTodoClick }) {
    const dispatch = useDispatch();
@@ -13,10 +19,13 @@ function Playlist({ handleTodoClick }) {
   const authorTrackFilter = useSelector(selectFilterAuthors)
   const genreTrackFilter = useSelector(selectFilterGenres)
   const sortTrackFilter = useSelector(selectFilterSort)
+  const { addTodoError, isLoading } = useGetSelectionsQuery();
 
    useEffect(() => {
-    dispatch(setTrackList(data));
-  }, [searchTrackTitle]);
+    if(data) {
+      dispatch(setTrackList(data));
+    }
+  }, [data]);
 
   const searchTrack = data?.filter((todo) => {
       const matchesTitle = todo.name.toLowerCase().includes(searchTrackTitle.toLowerCase());
@@ -50,17 +59,24 @@ function Playlist({ handleTodoClick }) {
    
   return (
     <S.ContentPlaylist>
-      <S.PlaylistItem>
+      {isLoading ? (
+        <Skeletone />
+      ) : (
+        <>
+          {addTodoError && <p>Не удалось загрузить плейлист, попробуйте позже: {addTodoError}.</p>}
+          <S.PlaylistItem>
             {filteredAndSortTracks()?.map((todo) => (
-              <PlaylistArray 
-              key={todo.id}
-              todo={todo}
-              handleTodoClick={handleTodoClick}
-               />
-              ))}
-      </S.PlaylistItem>
+              <PlaylistArray
+                key={todo.id}
+                todo={todo}
+                handleTodoClick={handleTodoClick}
+              />
+            ))}
+          </S.PlaylistItem>
+        </>
+      )}
     </S.ContentPlaylist>
-  )
+  );
 }
 
 export default Playlist;

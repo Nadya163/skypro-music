@@ -8,8 +8,8 @@ import Sidebar from '../components/Sidebar/Sidebar';
 const Layout =({ currentTodo, handleLogout }) => {
 
     return (
-        <>
-            <S.Main>
+      <>
+        <S.Main>
           <Nav
             handleLogout={handleLogout}
           />
@@ -22,7 +22,7 @@ const Layout =({ currentTodo, handleLogout }) => {
           {currentTodo ? (<Bar  />) : null}
         </S.Main>
         <footer className="footer" />
-        </>
+      </>
     )
 }
 

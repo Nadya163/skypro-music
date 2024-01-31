@@ -5,7 +5,9 @@ import { GlobalStyles } from './GlobalStyles';
 import AppRoutes from './routes';
 import UserContext from './context'
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentTrack, setCurrentTrackList } from './store/redux/playerSlice';
+import { 
+  setCurrentTrack, 
+  setCurrentTrackList } from './store/redux/playerSlice';
 import { resetAuth } from './store/redux/authSlice';
 import { selectorCategoryTrackId, selectorFavorites, selectorTrackList } from './store/selectors/selectors';
 
@@ -17,14 +19,18 @@ function App() {
     const categoryTrackId = useSelector(selectorCategoryTrackId);
     const trackList = useSelector(selectorTrackList);
 
+    console.log(currentTodo);
+
   const handleTodoClick = (todo) => {
     setCurrentTodo(todo);
     dispatch(setCurrentTrack(todo))
-        if (location.pathname === "/") {
+    if (location.pathname === "/") {
       dispatch(setCurrentTrackList(trackList))
+      console.log(trackList, "треклист");
     }
     if (location.pathname === "/myplaylist") {
       dispatch(setCurrentTrackList(favoritesTrack));
+      console.log(favoritesTrack);
     }
     if (
       location.pathname === `/category/1` ||
@@ -41,6 +47,7 @@ function App() {
     localStorage.removeItem('user');
     resetAuth();
     navigate('/login');
+    setCurrentTodo(null);
   };
 
 return (
