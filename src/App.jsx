@@ -1,45 +1,53 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './App.style';
 import { GlobalStyles } from './GlobalStyles';
 import AppRoutes from './routes';
-import getTodos from './api';
 import UserContext from './context'
-import { useDispatch } from 'react-redux';
-import { setCurrentTrack, setTrackList } from './store/redux/playerSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { 
+  setCurrentTrack, 
+  setCurrentTrackList } from './store/redux/playerSlice';
+import { resetAuth } from './store/redux/authSlice';
+import { selectorCategoryTrackId, selectorFavorites, selectorTrackList } from './store/selectors/selectors';
 
 function App() {
   const dispatch = useDispatch();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
-  const [todos, setTodos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [currentTodo, setCurrentTodo] = useState(null);
-  const [addTodoError, setAddTodoError] = useState(null);
+  const favoritesTrack = useSelector(selectorFavorites);
+    const categoryTrackId = useSelector(selectorCategoryTrackId);
+    const trackList = useSelector(selectorTrackList);
+
+    console.log(currentTodo);
 
   const handleTodoClick = (todo) => {
-    setCurrentTodo(todo)
+    setCurrentTodo(todo);
     dispatch(setCurrentTrack(todo))
+    if (location.pathname === "/") {
+      dispatch(setCurrentTrackList(trackList))
+      console.log(trackList, "треклист");
+    }
+    if (location.pathname === "/myplaylist") {
+      dispatch(setCurrentTrackList(favoritesTrack));
+      console.log(favoritesTrack);
+    }
+    if (
+      location.pathname === `/category/1` ||
+      location.pathname === `/category/2` ||
+      location.pathname === `/category/3`
+    ) {
+      dispatch(setCurrentTrackList(categoryTrackId))
+    }
   }
 
-  useEffect(() => {
-    getTodos()
-      .then((todo) => {
-        setTodos(todo);
-        dispatch(setTrackList(todo));
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setAddTodoError(error.message); 
-      });
-  }, []);
-
-  console.log(user);
-  
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    resetAuth();
     navigate('/login');
+    setCurrentTodo(null);
   };
 
 return (
@@ -54,14 +62,9 @@ return (
                 handleLogout();
               }} 
               handleLogout={handleLogout}
-              todos={todos}
-              setTodos={setTodos}
               setUser={setUser}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
               currentTodo={currentTodo}
               handleTodoClick={handleTodoClick}
-              addTodoError={addTodoError}
             />
         </S.Container>
       </S.Wrapper>

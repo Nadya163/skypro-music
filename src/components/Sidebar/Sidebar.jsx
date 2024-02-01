@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import * as S from './Sidebar.style';
-import sidebarArray from "../SidebarArray";
+import sidebarArray from "../Array/SidebarArray";
 import UserContext from "../../context";
+import { useGetSelectionsQuery } from "../../apiServece";
 
 function LoadingPersonal() {
   return (
@@ -32,9 +33,9 @@ function Loading() {
 )
 }
 
-function Sidebar({ isLoading, handleLogout }) {
+function Sidebar({ handleLogout }) {
 const {userData} = useContext(UserContext);
-console.log(userData.username);
+const { isLoading } = useGetSelectionsQuery();
 
     return (
       <S.MainSidebar>
@@ -45,7 +46,7 @@ console.log(userData.username);
           <S.SidebarPersonalName>{userData.username}</S.SidebarPersonalName>
           <S.SidebarIcon>
             <svg alt="logout" onClick={handleLogout}>
-              <use xlinkHref="img/icon/sprite.svg#logout" />
+              <use xlinkHref="../img/icon/sprite.svg#logout" />
             </svg>
           </S.SidebarIcon>
         </S.SidebarPersonal>

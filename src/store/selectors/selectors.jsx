@@ -1,0 +1,17 @@
+export const selectorTrackList = (state) => state.track.trackList;
+export const selectorCurrentTrack = (state) => state.track.currentTrack;
+export const selectorIsShaffling = (state) => state.track.isShaffling;
+export const selectPulsatingPoint = (store) => store.track.pulsatingPoint;
+export const selectorTimeInSeconds = (state) => state.time.timeInSeconds;
+export const selectorFavorites = (state) => state.track.favoritesTrack;
+export const selectorCategoryTrackId = (state) => state.track.categoryTrackId;
+export const selectorSearchTrack = (state) => state.track.searchTrack;
+export const selectFilterAuthors = (state) => state.track.filterAuthors;
+export const selectFilterSort = (state) => state.track.filterSort;
+export const selectDeleteFilterAuthors = (state) => state.track.deleteFilterAuthors;
+export const selectFilterGenres = (state) => state.track.filterGenres;
+export const selectDeleteFilterGenres = (state) => state.track.deleteFilterGenres;
+export const selectActiveLinkOnFilters = (state) => state.track.activeLinkOnFilters;
+export const selectToggleShuffleTrack = (state) => state.track.shuffleAllTracks;
+export const selectTrackInfo = (state) => state.track.trackInfo;
+export const selectorcurrentTrackList = (state) => state.track.currentTrackList;

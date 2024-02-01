@@ -1,105 +1,82 @@
-import { Link } from 'react-router-dom';
 import * as S from './Playlist.style'
-import trackArray from '../TrackArray';
-import { useSelector } from 'react-redux';
-import { selectPulsatingPoint, selectorCurrentTrack } from '../../store/redux/playerSlice';
+import { useGetAllMusicQuery, useGetSelectionsQuery } from '../../apiServece';
+import PlaylistArray from '../Array/PlaylistArray';
+import { 
+  useDispatch, 
+  useSelector } from 'react-redux';
+import { 
+  setSortTrackFilter, 
+  setTrackList
+ } from '../../store/redux/playerSlice';
+import { selectFilterAuthors, selectFilterGenres, selectFilterSort, selectorSearchTrack } from '../../store/selectors/selectors';
+import { useEffect } from 'react';
+import Skeletone from '../Skeletone/Skeletone';
 
-function Loading() {
-  return (
-    <S.PlaylistTrack>
-      <S.TrackTitle>
-        <S.TrackTitleImage>
-          <S.TrackTitleSvgLoading alt="music">
-            <use xlinkHref="img/icon/sprite.svg" />
-          </S.TrackTitleSvgLoading>
-        </S.TrackTitleImage>
-        <div>
-          <S.TrackTitleLinkLoading>
-            <img src="img/icon/track.svg" alt="" />
-          </S.TrackTitleLinkLoading>
-        </div>
-      </S.TrackTitle>
-      <S.TrackAuthor>
-        <S.TrackAuthorLinkLoading>
-          <img src="img/icon/album.svg" alt="" />
-        </S.TrackAuthorLinkLoading>
-      </S.TrackAuthor>
-      <S.TrackAlbum>
-        <S.TrackAlbumLinkLoading>
-          <img src="img/icon/author.svg" alt="" />
-        </S.TrackAlbumLinkLoading>
-      </S.TrackAlbum>
-      <div>
-        <S.TrackTimeSvgLoading alt="time">
-          <use xlinkHref="img/icon/sprite.svg#icon-like" />
-        </S.TrackTimeSvgLoading>
-        <S.TrackTimeTextLoading>0:00</S.TrackTimeTextLoading>
-      </div>
-    </S.PlaylistTrack>
-  )
-}
+function Playlist({ handleTodoClick }) {
+   const dispatch = useDispatch();
+  const { data } = useGetAllMusicQuery();
+  const searchTrackTitle = useSelector(selectorSearchTrack);
+  const authorTrackFilter = useSelector(selectFilterAuthors)
+  const genreTrackFilter = useSelector(selectFilterGenres)
+  const sortTrackFilter = useSelector(selectFilterSort)
+  const { addTodoError, isLoading } = useGetSelectionsQuery();
 
-function Playlist({ todos, handleTodoClick, isLoading, setIsLoading, formatTime }) {
-  const pulsarPointer = useSelector(selectPulsatingPoint);
-  const currentTrack = useSelector(selectorCurrentTrack);
+   useEffect(() => {
+    if(data) {
+      dispatch(setTrackList(data));
+    }
+  }, [data]);
 
+  const searchTrack = data?.filter((todo) => {
+      const matchesTitle = todo.name.toLowerCase().includes(searchTrackTitle.toLowerCase());
+      const sortFilterAuthor = !authorTrackFilter.length
+      ? todo
+      : todo.author.includes(
+        authorTrackFilter.find((author) => author === todo.author)
+      )
+    const sortFilterGenre = !genreTrackFilter.length
+      ? todo
+      : todo.genre.includes(
+        genreTrackFilter.find((genre) => genre === todo.genre)
+      )
+    return matchesTitle && sortFilterGenre && sortFilterAuthor
+  });
+
+  const filteredAndSortTracks = () => {
+    if (sortTrackFilter.sort === "Сначала новые") {
+      return searchTrack
+        .sort((a, b) => parseFloat(a.release_date) - parseFloat(b.release_date))
+        .reverse()
+    }
+    if (sortTrackFilter.sort === "Сначала старые") {
+      return searchTrack
+        .sort((a, b) => parseFloat(a.release_date) - parseFloat(b.release_date))
+    }
+    if (sortTrackFilter.sort === "По умолчанию" || !setSortTrackFilter.sort) {
+      return searchTrack
+    }
+  }
+   
   return (
     <S.ContentPlaylist>
-      <S.PlaylistItem>
-        {isLoading ? (
-            <>
-            {trackArray.map((todo) => (
-              <Loading 
+      {isLoading ? (
+        <Skeletone />
+      ) : (
+        <>
+          {addTodoError && <p>Не удалось загрузить плейлист, попробуйте позже: {addTodoError}.</p>}
+          <S.PlaylistItem>
+            {filteredAndSortTracks()?.map((todo) => (
+              <PlaylistArray
                 key={todo.id}
-                setIsLoading={setIsLoading}
+                todo={todo}
+                handleTodoClick={handleTodoClick}
               />
             ))}
-          </>
-        ) : (
-          <div>
-            {todos.map((todo) => (
-              <S.PlaylistTrack key={todo.id}>
-                <S.TrackTitle>
-                  <S.TrackTitleImage>
-                  {currentTrack && currentTrack.id === todo.id ? (
-                      <S.PointPlaying $playing={pulsarPointer} />
-                    ) : (
-                      <S.TrackTitleSvg alt="music">
-                        <use xlinkHref="img/icon/sprite.svg#icon-note" />
-                      </S.TrackTitleSvg>
-                    )
-                    }
-                  </S.TrackTitleImage>
-                  <div>
-                    <S.TrackTitleLink as={Link} onClick={() => handleTodoClick(todo)}>
-                      {todo.name} <S.TrackTitleSpan> {todo.together} </S.TrackTitleSpan>
-                    </S.TrackTitleLink>
-                  </div>
-                </S.TrackTitle>
-                <S.TrackAuthor>
-                  <S.TrackAuthorLink href="http://">
-                    {todo.author}
-                  </S.TrackAuthorLink>
-                </S.TrackAuthor>
-                <S.TrackAlbum>
-                  <S.TrackAlbumLink href="http://">
-                    {todo.album}
-                  </S.TrackAlbumLink>
-                </S.TrackAlbum>
-                <div>
-                  <S.TrackTimeSvg alt="time">
-                    <use xlinkHref="img/icon/sprite.svg#icon-like" />
-                  </S.TrackTimeSvg>
-                  <S.TrackTimeText>{formatTime(todo.duration_in_seconds)}</S.TrackTimeText>
-                </div>
-              </S.PlaylistTrack>
-            ))}
-          </div>
-        )}
-      </S.PlaylistItem>
+          </S.PlaylistItem>
+        </>
+      )}
     </S.ContentPlaylist>
-  )
+  );
 }
 
 export default Playlist;
-

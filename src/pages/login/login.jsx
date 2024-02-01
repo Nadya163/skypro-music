@@ -5,11 +5,18 @@ import * as S from './login.style'
 import { LoginTodos } from '../../api';
 import { useContext } from 'react';
 import UserContext from '../../context';
+import { useGetTokenMutation } from '../../apiServece';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../../store/redux/authSlice';
 
 
 function Login() {
+  const dispatch = useDispatch();
+  const [getToken] = useGetTokenMutation();
   const [errorMessage, setErrorMessage] = useState(null);
   const {changingUserData} = useContext(UserContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const {
     register,
@@ -19,21 +26,40 @@ function Login() {
   } = useForm({
     mode: "onBlur"
   });
+
   const navigate = useNavigate();
 
-    const handleLogin = ({email, password}) => {
+  const responseToken = () => {
+    getToken({ email, password })
+      .unwrap()
+      .then((token) => {
+        dispatch(
+          setAuth({
+            access: token.access,
+            refresh: token.refresh,
+            user: JSON.parse(localStorage.getItem("user")),
+          })
+        );
+      })
+      .catch((error) => {
+        return error;
+      })
+  };
+
+    const handleLogin = () => {
       LoginTodos({
         email: email,
         password: password
       })
         .then((response) => {
-          console.log(response);
           localStorage.setItem('user', JSON.stringify(response));
           changingUserData(JSON.parse(localStorage.getItem('user')))
           navigate('/');
           reset();
         }).catch((error) => {
           setErrorMessage(error.message);
+        }).finally(() => {
+          responseToken();
         });
   };
 
@@ -50,6 +76,7 @@ function Login() {
             <S.ModalInput
               {...register("email", {
                 required: "Поле обязательно к заполнению.",
+                onChange: ((event) => setEmail(event.target.value))
               })}
               type="email"
               placeholder="Почта"
@@ -58,7 +85,7 @@ function Login() {
             <S.ModalInput
               {...register("password", {
                 required: "Поле обязательно к заполнению.",
-                onChange: ((event) => event.target.value)
+                onChange: ((event) => setPassword(event.target.value))
               })}
               type="password"
               placeholder="Пароль"

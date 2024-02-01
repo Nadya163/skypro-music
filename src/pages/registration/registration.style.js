@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-export const ErrorMessage = styled.span`
+export const error = styled.span`
 color: red;
 `;
 

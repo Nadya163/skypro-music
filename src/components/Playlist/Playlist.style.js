@@ -164,6 +164,7 @@ export const TrackTimeSvg = styled.svg`
     margin-right: 17px;
     fill: transparent;
     stroke: #696969;
+    cursor: pointer;
 `;
 
 export const TrackTimeSvgLoading = styled.svg`
@@ -202,13 +203,25 @@ export const ContentPlaylist = styled.div`
       -webkit-box-direction: normal;
       -ms-flex-direction: column;
       flex-direction: column;
-      overflow-y: auto;
 `;
 
 export const PlaylistItem = styled.div`
   width: 100%;
   display: block;
   margin-bottom: 12px;
+    height: 900px;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        width: 1px;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: rgba(75, 73, 73, 1); 
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 10px;
+    }
 `;
 
 export const animation = keyframes`{

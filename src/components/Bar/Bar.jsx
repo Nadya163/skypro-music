@@ -2,15 +2,21 @@ import { useState,  useRef, useEffect } from 'react';
 import * as S from './Bar.style'
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  playNextTrack,
-  playPreviousTrack,
-  selectorCurrentTrack,
-  selectorCurrentTrackIndex,
-  selectorIsShaffling,
-  selectorTrackList, setPulsatingPoint, toggleIsShaffling
+    playNextTrack,
+    playPreviousTrack,
+   setPulsatingPoint,
+    toggleIsShaffling,
 } from '../../store/redux/playerSlice';
+import { 
+  selectorCurrentTrack,
+  selectorIsShaffling, 
+ } from '../../store/selectors/selectors';
+import { formatTime } from '../../store/redux/timeSlice';
+import LikeAndDislike from './LikeDislike/LikeDislike';
 
-function Bar({ formatTime }) {
+
+
+function Bar() {
   const dispatch = useDispatch();
   const audioRef = useRef(null);
 
@@ -20,11 +26,10 @@ function Bar({ formatTime }) {
   const [duration, setDuration] = useState(0);
   const [isLoop, setIsLoop] = useState(false);
 
-  const trackList = useSelector(selectorTrackList);
   const currentTrack = useSelector(selectorCurrentTrack);
-  const currentTrackIndex = useSelector(selectorCurrentTrackIndex);
   const isSuffle = useSelector(selectorIsShaffling);
 
+  
   const handleNextClick = () => {
     dispatch(playNextTrack());
   };
@@ -32,8 +37,6 @@ function Bar({ formatTime }) {
   const handleBackClick = () => {
     dispatch(playPreviousTrack());
   };
-
-  // console.log(currentTrack);
 
   const handleStart = () => {
     audioRef.current?.play();
@@ -113,7 +116,7 @@ function Bar({ formatTime }) {
                   (<use xlinkHref="img/icon/sprite.svg#icon-pause" />) : (<use xlinkHref="img/icon/sprite.svg#icon-play" />)}
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
-                <S.PlayerBtnNext  type='button' onClick={handleNextClick} disabled={currentTrackIndex === trackList.length - 1}>
+                <S.PlayerBtnNext  type='button' onClick={handleNextClick}>
                   <S.PlayerBtnNextSvg alt="next">
                     <use xlinkHref="img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
@@ -151,18 +154,7 @@ function Bar({ formatTime }) {
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>
               </S.PlayerTrackPlay>
-              <S.TrackPlayLikeDis>
-                <S.TrackPlayLike>
-                  <S.TrackPlayLikeSvg alt="like">
-                    <use xlinkHref="img/icon/sprite.svg#icon-like" />
-                  </S.TrackPlayLikeSvg>
-                </S.TrackPlayLike>
-                <S.TrackPlayDislike>
-                  <S.TrackPlayDislikeSvg alt="dislike">
-                    <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
-                  </S.TrackPlayDislikeSvg>
-                </S.TrackPlayDislike>
-              </S.TrackPlayLikeDis>
+              <LikeAndDislike />
             </S.BarPlayer>
           </S.BarPlayerBlock>
           <S.BarVolumeBlock>
